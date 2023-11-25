@@ -35,7 +35,7 @@ const Vista = ({ Component, pageProps }) => {
     }, [router]);
 
     useEffect(() => {
-        console.log("ME VUELVO A ARMAR");
+        console.log("ME VUELVO A ARMAR AHORA ACTUALIZADO");
     }, [datosIn]);
     const cambioTamaño = () => {
         if (menuBar === "ocultar") {
