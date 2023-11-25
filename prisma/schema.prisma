@@ -199,9 +199,9 @@ model ordent {
   obs         String?     @db.VarChar(500)
   estado      String?     @db.VarChar(200)
   factura     String?     @db.VarChar
-  arte1        arte[]
+  arte1       arte[]
   detot       detot[]
-  factura1     factura[]
+  factura1    factura[]
   cliente     cliente?    @relation(fields: [idcli], references: [idcli], onDelete: NoAction, onUpdate: NoAction)
   cotizacion  cotizacion? @relation(fields: [idcot], references: [idcot], onDelete: NoAction, onUpdate: NoAction)
   usuario     usuario?    @relation(fields: [idu], references: [idu], onDelete: NoAction, onUpdate: NoAction)
