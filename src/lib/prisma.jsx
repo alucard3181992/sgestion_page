@@ -1,5 +1,5 @@
-/* import { PrismaClient } from '@prisma/client';
-
+ import { PrismaClient } from '@prisma/client';
+/*
 let prisma = new PrismaClient()
 
 if (process.env.NODE_ENV === 'production') {
@@ -14,7 +14,7 @@ if (process.env.NODE_ENV === 'production') {
 export default prisma; */
 
 
-import { PrismaClient } from "../../prisma/generated/client"
+//import { PrismaClient } from "../../prisma/generated/client"
 //const prisma = new PrismaClient()
 
 const prisma = new PrismaClient({
