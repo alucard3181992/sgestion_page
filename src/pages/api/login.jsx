@@ -1,6 +1,8 @@
 import jwt, { verify } from 'jsonwebtoken';
 import { serialize } from 'cookie';
-import prisma from '@/lib/prisma';
+//import prisma from '@/lib/prisma';
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
 
 const LoginBD = async (req, res) => {
     const { method } = req;
