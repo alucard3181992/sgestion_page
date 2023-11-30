@@ -3,20 +3,18 @@ import PrincipalContextProvider, { PrincipalContext } from "@/context/PrincipalC
 import PaginaExteriorInicio from "@/components/PaginasExterior/Inicio";
 import { Session } from "@/components/Esqueleto/VistaSkeleton";
 
-const VistaFuera = React.memo(() => (
+const VistaFuera = () => (
     <React.Fragment>
         <PaginaExteriorInicio />
     </React.Fragment>
-));
-VistaFuera.displayName = 'VistaFuera'
+)
 
-const VistaDentro = React.memo(() => (
+const VistaDentro = () => (
     <React.Fragment>
         estoy en el sistema
     </React.Fragment>
-));
+)
 
-VistaFuera.displayName = 'VistaDentro'
 
 const VistaPrincipal = () => {
     const { datosIn, setScroll, loading } = useContext(PrincipalContext);
