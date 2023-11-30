@@ -8,12 +8,16 @@ const VistaFuera = React.memo(() => (
         <PaginaExteriorInicio />
     </React.Fragment>
 ));
+VistaFuera.displayName = 'VistaFuera'
 
 const VistaDentro = React.memo(() => (
     <React.Fragment>
         estoy en el sistema
     </React.Fragment>
 ));
+
+VistaFuera.displayName = 'VistaDentro'
+
 const VistaPrincipal = () => {
     const { datosIn, setScroll, loading } = useContext(PrincipalContext);
     useEffect(() => {
