@@ -236,12 +236,12 @@ export default function VistaUsuario() {
 
     return (<React.Fragment>
 
-        <TablaPrincipal
+        {/* <TablaPrincipal
             lista={usuarios}
             datos={datos}
             columnas={columnas}
             columnasExpasion={columnasExpasion}
-            datosCliente={editar}></TablaPrincipal>
+            datosCliente={editar}></TablaPrincipal> */}
         <VistaGeneradora></VistaGeneradora>
     </React.Fragment>)
 }

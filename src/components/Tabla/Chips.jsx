@@ -18,3 +18,15 @@ const RenderizarChips = ({ campo, cli, setCli, cliente, setCliente, }) => {
 }
 
 export default RenderizarChips;
+
+export function SimpleChips({ campo, cli, setCli, cliente, setCliente }) {
+    return (<div className="field mb-5">
+        <span className="p-float-label font-bold">
+            <Chips
+                value={cliente[campo]}
+                onChange={(e) => Funciones.cambioValores(campo, e.target.value, setCli, setCliente, cliente, cli)}
+            />
+            <label>{Funciones.formatearCadena(campo)}: </label>
+        </span>
+    </div>)
+}

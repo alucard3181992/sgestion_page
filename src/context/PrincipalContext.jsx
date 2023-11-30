@@ -58,17 +58,15 @@ const PrincipalContextProvider = (props) => {
             principalServicio.verificar().then((data) => {
                 setDatos(data)
                 setDatosIn(data.estado)
-                setEmpresa(data.empresa)
                 if (data.estado) {
+                    setEmpresa(data.empresa)
                     principalServicio.imagen(data.datos[0].idpe).then((data2) => {
                         setUsuario(data.datos[0])
                         setPerfil(data2.base64.base64);
-
                     })
                 }
                 setLoading(false)
-            });
-            //console.log("me llaman normal Principal");
+            })
         } catch (error) {
             console.log(error)
         }
@@ -93,9 +91,10 @@ const PrincipalContextProvider = (props) => {
         const respuesta = await principalServicio.listar(datosIncicio).then((data) => {
             let acceder = { acceder: "", usuario: "" }
             if (data.message === "Usuario Permitido") {
+                setLoading(true)
+                setMensaje("Verificando Inicio de Session...")
                 setCount(1)
                 router.push("/")
-                setMensaje("  Iniciando Session...")
                 setAcceso(false)
                 setDatosIn(true)
                 acceder.usuario = data.usuario
@@ -105,10 +104,13 @@ const PrincipalContextProvider = (props) => {
                 return acceder
             }
         })
+        setLoading(false)
+        setMensaje("Verificando...")
         return respuesta
     }
 
     const salir = () => {
+        setLoading(true)
         principalServicio.eliminar().then((data) => {
             setUsuario(values)
             setPerfil("")
@@ -117,6 +119,8 @@ const PrincipalContextProvider = (props) => {
             router.push("/")
         })
         setMenuBar2("ocultar")
+        setLoading(false)
+        setMensaje("Verificando...")
     }
 
     const cargar = () => {
@@ -154,7 +158,7 @@ const PrincipalContextProvider = (props) => {
                 eventData,
                 empresa,
                 scroll,
-                setScroll
+                setScroll,
             }}
         >
             {props.children}

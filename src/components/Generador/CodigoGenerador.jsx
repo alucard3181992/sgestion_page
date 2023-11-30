@@ -16,6 +16,30 @@ export function CodigoGenerador(...componentes) {
         ...datos
     }
 
+    // Función personalizada para JSON.stringify
+    function replacer(key, value) {
+        // Si la clave es "funcion" y el valor es una cadena, quitar las comillas
+        if (key === "funcion") {
+            return value;
+        }
+        // Si el valor es una función, representarla como su código fuente
+        if (typeof value === 'function') {
+            return value.toString();
+        }
+        // Si la clave es "tablaArray" y el valor es una cadena de números separados por comas, convertir a un array de números
+        if (key === "tablaArray" && typeof value === 'string') {
+            return value.split(',').map(Number);
+        }
+        return value;
+    }
+
+    // Convertir el objeto a cadena con JSON.stringify y la función personalizada
+    const jsonString = JSON.stringify(dataExportada, replacer, 2);
+
+    const json1 = jsonString
+        .replace(/"funcion": "(.*?)"/g, '"funcion": $1')
+        .replace(/"generarHandler": "(.*?)"/g, '"generarHandler": $1')
+        .replace(/"dialog": "(.*?)"/g, '"dialog": $1')
 
     const contenidoArchivo = `
 import React, { useEffect, useState, useContext } from "react"
@@ -25,14 +49,7 @@ export default function ${dataExportada.NombreFuncion}() {
     const [formulario, setFormulario] = useState(false)
     const { empresa, ${dataExportada.ListaPrincipal}, roles, nuevo, modificar, editar, cerrarFormulario, registro, setRegistro, buscar, mostrar, eliminarMasivo, eliminarIndividual } = useContext(UsuarioContext)
 
-    const datos = ${JSON.stringify(dataExportada, function (key, value) {
-        if (typeof value === 'function') {
-            return value.name; // Solo devuelve el nombre de la función
-        }
-        return value;
-    }, 2)
-            .replace(/"(\w+)"\s*:/g, '$1:')} // Elimina las comillas alrededor de las claves
-
+    const datos2 = ${json1};
     useEffect(() => {
 
     }, []);

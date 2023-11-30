@@ -1,10 +1,14 @@
+import React, { useContext, useState, useEffect } from 'react';
+
+import Principal from './Principal';
+import Menus from '../Menu/Menus';
 
 import Login from '@/components/Login/Login';
-import Principal from './Principal';
 import VistaSkeleton, { Paginacion, Session } from '@/components/Esqueleto/VistaSkeleton';
 import PrincipalContextProvider, { PrincipalContext } from '@/context/PrincipalContext';
+
 import Link from 'next/link';
-import React, { useContext, useState, useEffect } from 'react';
+
 import { Button } from "primereact/button";
 import { Sidebar } from 'primereact/sidebar';
 import { Divider } from 'primereact/divider';
@@ -13,12 +17,26 @@ import { useRouter } from "next/router";
 //import "primereact/resources/themes/arya-blue/theme.css";
 
 const Vista = ({ Component, pageProps }) => {
-    const { empresa, eventData, panelActividades, setPanelActividades, actividades, setActividades,
-        setScroll, datosIn, loading, menuBar, setMenuBar, setMenuBar2, tema, mensaje
-    } = useContext(PrincipalContext);
-    const router = useRouter();
-    const [loading2, setLoading2] = useState(false);
+    const { empresa,
+        eventData,
+        panelActividades,
+        setPanelActividades,
+        actividades,
+        setActividades,
+        setScroll,
+        datosIn,
+        loading,
+        menuBar,
+        setMenuBar,
+        setMenuBar2,
+        tema,
+        mensaje
+    } = useContext(PrincipalContext)
+
+    const router = useRouter()
+    const [loading2, setLoading2] = useState(false)
     const [menuLateral, setMenuLateral] = useState(false)
+
     useEffect(() => {
         const handleRouteChangeStart = () => setLoading2(true);
         const handleRouteChangeComplete = () => setLoading2(false);
@@ -32,11 +50,8 @@ const Vista = ({ Component, pageProps }) => {
             router.events.off("routeChangeComplete", handleRouteChangeComplete);
             router.events.off("routeChangeError", handleRouteChangeComplete);
         };
-    }, [router]);
+    }, [router])
 
-    useEffect(() => {
-        console.log("ME VUELVO A ARMAR AHORA ACTUALIZADO");
-    }, [datosIn]);
     const cambioTamaño = () => {
         if (menuBar === "ocultar") {
             setMenuBar("")
@@ -59,10 +74,10 @@ const Vista = ({ Component, pageProps }) => {
     }
 
     return (
-        <>   
-        {tema && <>
-            <link id="theme-link" rel="stylesheet" href={"/icons/themes/" + tema + "/theme.css"} />
-        </>}
+        <>
+            {tema && <>
+                <link id="theme-link" rel="stylesheet" href={"/icons/themes/" + tema + "/theme.css"} />
+            </>}
             {loading ? (
                 <>
                     <Session animacion={"P"} todo={false} mensaje={mensaje} />
@@ -82,7 +97,7 @@ const Vista = ({ Component, pageProps }) => {
                                     />
                                 </div>
                                 <div className="menu">
-                                    menus
+                                    <Menus />
                                 </div>
                                 <div className={"contenido"}>
                                     {loading2 && <Paginacion animacion={""} todo={true} />}
