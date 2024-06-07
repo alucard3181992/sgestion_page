@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react"
-import UsuarioContextProvider from "@/context/UsuarioContext"
-import VistaUsuario from "@/components/Usuario/UsuarioDatos"
 import VistaGeneradora from "@/components/Generador/VistaGeneradora";
+import AuthWrapper from "@/components/Componentes/AuthWrapper";
 export default function Modelo4() {
 
     useEffect(() => {
     }, []);
 
     return (<React.Fragment>
-        <VistaGeneradora />
+        <AuthWrapper correctPassword="admin12">
+            <VistaGeneradora />
+        </AuthWrapper>
     </React.Fragment>)
 }
+

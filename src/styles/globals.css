@@ -1401,6 +1401,14 @@ tr.fc-event.fc-event-start.fc-event-end.fc-event-past.fc-list-event:hover {
   }
 }
 
+.especial {
+  display: flex;
+}
+
+.logoEspecial {
+  display: none;
+}
+
 /* Pantallas medianas (768px y más) */
 @media (min-width: 768px) {
   .should-center-align {
@@ -1505,6 +1513,17 @@ tr.fc-event.fc-event-start.fc-event-end.fc-event-past.fc-list-event:hover {
     display: block !important;
     float: left !important;
     text-align: left !important;
+    width: 100% !important;
+  }
+
+  .especial {
+    display: none
+  }
+
+  .logoEspecial {
+    display: flex;
+    justify-content: center;
+    place-items: center;
     width: 100% !important;
   }
 

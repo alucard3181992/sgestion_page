@@ -90,7 +90,7 @@ const Vista = ({ Component, pageProps }) => {
                                 <div className='top'>
                                     <Button icon={"pi pi-bars"} style={{ height: 30, marginLeft: 25, marginTop: 0, position: 'absolute', left: 0 }} onClick={cambioTamaño} />
                                     <Link href={'/'} className='imprenta' >
-                                        {empresa}
+                                        {"NOMBRE EMPRESA"}
                                     </Link>
                                     <Button icon="pi pi-cog" style={{ height: 30, marginRight: 25, marginTop: 0, position: 'absolute', right: 0 }} onClick={() => setPanelActividades(true)}
                                         tooltip='Actividades' tooltipOptions={{ position: "left" }}

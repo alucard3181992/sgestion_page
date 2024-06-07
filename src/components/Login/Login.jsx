@@ -107,7 +107,7 @@ const Login = () => {
                         <div className='grid'>
                             <div className='col-12 md:col-6 md:margint40 lg:margint40 lg:col-6'>
                                 <div className={'text-center'}>
-                                    <div className="font-bold mb-3 text-xl"><i className="pi pi-prime"></i>&nbsp;IMPRENTA NAZARET</div>
+                                    <div className="font-bold mb-3 text-xl"><i className="pi pi-prime"></i>&nbsp;NOMBRE EMPRESA</div>
                                     <div className="font-bold text-5xl mb-3">Bienvenidos!</div>
                                     <div className="flex flex-wrap justify-content-center gap-3 mb-4">
                                         <Button className='loginBoton' icon="pi pi-youtube" rounded />
