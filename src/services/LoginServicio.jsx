@@ -19,11 +19,16 @@ export class LoginServicio {
         return datos.data;
     }
     async prueba() {
-        const datos = await axios.get("http://localhost:3000/api/usuarios/usuario");
+        const datos = await axios.get(baseUrl + "api/usuarios/usuario");
         return datos.data;
     }
     async prueba2() {
         const datos = await axios.get("http://localhost:3000/api/rol/rol");
         return datos.data;
     }
+    async ListarOrden() {
+        const datos = await axios.get(baseUrl + "api/orden/orden");
+        return datos.data;
+    }
+
 }

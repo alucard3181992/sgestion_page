@@ -106,12 +106,9 @@ const Vista = ({ Component, pageProps }) => {
                             </div>
                         </>
                     ) : (<>
-                        <div className="fuera" onScroll={event => {
-                            const scrollTop = event.target.scrollTop;
-                            setScroll(scrollTop)
-                        }}>
+                        
                             <Component  {...pageProps} />
-                        </div>
+                       
                     </>)}
                 </>
             )

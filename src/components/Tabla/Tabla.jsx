@@ -366,7 +366,7 @@ export default function TablaPrincipal({ lista, datos, columnas, columnasExpasio
                         <Column header="Borrar"
                             body={(data) => botonBorrar(data)}
                             style={{ textAlign: 'center' }} />}
-                    {datos.columnaAdicional && datos.columnaAdicional.map((col, i) => (
+                    {datos.columnaAdicionalOpcion && datos.columnaAdicional && datos.columnaAdicional.map((col, i) => (
                         <Column
                             key={col.header}
                             header={col.header}

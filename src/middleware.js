@@ -5,14 +5,7 @@ export async function middleware(request) {
     let continuar = "no"
     if (request.nextUrl.pathname === "/" || request.nextUrl.pathname.includes("/_next") || request.nextUrl.pathname.includes("/api/") || request.nextUrl.pathname.includes("/icon")) {
     } else {
-        if ("/Modelo1/Modelo1" === request.nextUrl.pathname
-            || "/Modelo2/Modelo2" === request.nextUrl.pathname
-            || "/Modelo3/Modelo3" === request.nextUrl.pathname
-            || "/Modelo4/Modelo4" === request.nextUrl.pathname
-            || "/Principal/Principal" === request.nextUrl.pathname
-            || "/IngresoSistema/Ingreso" === request.nextUrl.pathname) {
-            return NextResponse.next()
-        }
+
         if (jwt !== undefined) {
             const { payload } = await jwtVerify(jwt.value, new TextEncoder().encode('secret'))
             payload.roles.map((rol) => {
@@ -32,7 +25,21 @@ export async function middleware(request) {
             }
 
         } else {
-            return NextResponse.redirect(new URL("/", request.url))
+            if ("/Modelo/Modelo" === request.nextUrl.pathname
+                || "/Modelo1/Modelo1" === request.nextUrl.pathname
+                || "/Modelo2/Modelo2" === request.nextUrl.pathname
+                || "/Modelo3/Modelo3" === request.nextUrl.pathname
+                || "/Modelo4/Modelo4" === request.nextUrl.pathname
+                || "/Modelo5/Modelo5" === request.nextUrl.pathname
+                || "/Principal/Principal" === request.nextUrl.pathname
+                || "/Usuario/GUsuario" === request.nextUrl.pathname
+                || "/Cliente/GCliente" === request.nextUrl.pathname
+                || "/IngresoSistema/Ingreso" === request.nextUrl.pathname) {
+                return NextResponse.next()
+            } else {
+                return NextResponse.redirect(new URL("/", request.url))
+            }
+
         }
     }
 

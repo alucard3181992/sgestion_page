@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import PrincipalContextProvider, { PrincipalContext } from "@/context/PrincipalContext";
 import PaginaExteriorInicio from "@/components/PaginasExterior/Inicio";
 import { Session } from "@/components/Esqueleto/VistaSkeleton";
+import PaginaInicio from "@/components/Inicio/PaginaInicio";
 
 const VistaFuera = () => (
     <React.Fragment>
@@ -11,7 +12,7 @@ const VistaFuera = () => (
 
 const VistaDentro = () => (
     <React.Fragment>
-        estoy en el sistema
+        <PaginaInicio />
     </React.Fragment>
 )
 
@@ -23,6 +24,7 @@ const VistaPrincipal = () => {
     }, [datosIn])
 
     const handleScroll = (event) => {
+        console.log("SOY ESCROll");
         const scrollTop = event.target.scrollTop;
         setScroll(scrollTop);
     }

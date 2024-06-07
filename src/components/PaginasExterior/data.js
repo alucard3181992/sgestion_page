@@ -173,6 +173,13 @@ export const items = [
         href: "/Modelo4/Modelo4",
     },
     {
+        label: 'Modelo5',
+        icon: 'pi pi-fw pi-calendar-plus',
+        url: "/Modelo5/Modelo5",
+        link: "si",
+        href: "/Modelo5/Modelo5",
+    },
+    {
         label: 'Ingresar al Sistema',
         icon: 'pi pi-fw pi-plus',
         link: "si",

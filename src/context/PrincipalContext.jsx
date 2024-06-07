@@ -53,6 +53,7 @@ const PrincipalContextProvider = (props) => {
     const [registro, setRegistro] = useState()
     const [empresa, setEmpresa] = useState()
     useEffect(() => {
+        //console.log("SOY EL Q ACTUALIZA 1");
         try {
             setLoading(true)
             principalServicio.verificar().then((data) => {
@@ -74,12 +75,14 @@ const PrincipalContextProvider = (props) => {
 
     Validacion.addLocale();
     useEffect(() => {
+        //console.log("SOY EL Q ACTUALIZA 2");
         setEventData({ width: window.innerWidth, height: window.innerHeight });
         if (window.innerWidth <= 1024) { setMenuBar("ocultar") } else { setMenuBar("") }
         if (window.innerWidth <= 768) { setMenuBar("nada") } else { setMenuBar("") }
     }, []);
 
     useEffect(() => {
+        //console.log("SOY EL Q ACTUALIZA 3");
         bindWindowResizeListener();
 
         return () => {

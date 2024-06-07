@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { InputText } from "primereact/inputtext"
 import { Funciones } from "./Funciones";
 
 const RenderizarInputTexto = ({ campo, cli, setCli, cliente, setCliente, }) => {
+    useEffect(() => {
 
+    }, [])
     return <div className={cli.includes(campo.value) ? "field error p-error mb-5" : "field mb-5"}>
         <span className="p-float-label font-bold">
             <InputText
@@ -22,6 +24,12 @@ const RenderizarInputTexto = ({ campo, cli, setCli, cliente, setCliente, }) => {
 export default RenderizarInputTexto
 
 export function SimpleInputTexto({ campo, cli, setCli, cliente, setCliente }) {
+    console.log("ME LLAMAN SimpleInputTexto", campo);
+    const [valor, setValor] = useState(null)
+    const [titulo] = useState(Funciones.formatearCadena(campo))
+    useEffect(() => {
+        
+    }, [])
     return (<div className="field mb-5">
         <span className="p-float-label font-bold">
             <InputText
@@ -29,7 +37,7 @@ export function SimpleInputTexto({ campo, cli, setCli, cliente, setCliente }) {
                 onChange={(e) => Funciones.cambioValores(campo, e.target.value, setCli, setCliente, cliente, cli)}
                 className='w-full'
             />
-            <label>{Funciones.formatearCadena(campo)}: </label>
+            <label>{titulo}: </label>
         </span>
     </div>)
 }

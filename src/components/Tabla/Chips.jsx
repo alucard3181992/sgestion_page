@@ -25,6 +25,7 @@ export function SimpleChips({ campo, cli, setCli, cliente, setCliente }) {
             <Chips
                 value={cliente[campo]}
                 onChange={(e) => Funciones.cambioValores(campo, e.target.value, setCli, setCliente, cliente, cli)}
+                
             />
             <label>{Funciones.formatearCadena(campo)}: </label>
         </span>

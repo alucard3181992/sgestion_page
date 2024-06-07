@@ -1,5 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 
+import Tesseract from 'tesseract.js';
+
 import { FileUpload } from 'primereact/fileupload';
 import { Button } from 'primereact/button';
 import { Tag } from 'primereact/tag';
@@ -13,6 +15,7 @@ import Sobel from 'sobel';
 
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 import { ImagenC } from '../Esqueleto/VistaSkeleton';
+import { InputTextarea } from 'primereact/inputtextarea';
 const Archivo = ({ codigoBase64 }) => {
 
 
@@ -22,6 +25,8 @@ const Archivo = ({ codigoBase64 }) => {
   const [tamaño, setTamaño] = useState(0);
   const [archivoImg, setArchivo] = useState();
   const [bloqueo, setBloqueo] = useState(false);
+  const [bloqueoTexto, setBloqueoTexto] = useState(false);
+  const [texto, setTexto] = useState('');
 
   const [valor, setValor] = useState({
     "Saturacion": 0,
@@ -38,6 +43,7 @@ const Archivo = ({ codigoBase64 }) => {
     setImg("");
     codigoBase64({ imagen1: null, imagen2: null });
     callback();
+    setTexto('')
   };
 
 
@@ -46,7 +52,7 @@ const Archivo = ({ codigoBase64 }) => {
     const file = event.files[0];
     setArchivo(event.files[0]);
     convertirImagen(file);
-
+    textoImagen(file)
   };
 
   const conversion = () => {
@@ -77,10 +83,12 @@ const Archivo = ({ codigoBase64 }) => {
             setImg(imgResultado2.src)
             setBloqueo(false)
             codigoBase64({ imagen1: img.src, imagen2: imgResultado2.src })
+            //mejorarCalidad(imgResultado2)
           })
           .catch(error => {
             console.error("Error:", error);
           });
+
       };
     };
   };
@@ -111,6 +119,12 @@ const Archivo = ({ codigoBase64 }) => {
 
       const imgResultado = new misNombres.Image();
       imgResultado.src = canvas.toDataURL();
+      //
+      /* const link = document.createElement('a');
+      link.download = `soloInvertir.png`;
+      link.href = imgResultado.src;
+      link.click(); */
+      //
       resolve(imgResultado);
     });
   }
@@ -135,7 +149,12 @@ const Archivo = ({ codigoBase64 }) => {
       const imgResultado = new misNombres.Image();
 
       imgResultado.src = canvas.toDataURL();
-
+      //
+      /* const link = document.createElement('a');
+      link.download = `bordesSobel.png`;
+      link.href = imgResultado.src;
+      link.click(); */
+      //
       resolve(imgResultado);
     });
   }
@@ -158,8 +177,63 @@ const Archivo = ({ codigoBase64 }) => {
 
       const imgResultado = new misNombres.Image();
       imgResultado.src = canvas.toDataURL();
+      //
+      /* const link = document.createElement('a');
+      link.download = `invierteCanvas.png`;
+      link.href = imgResultado.src;
+      link.click(); */
+      //
       resolve(imgResultado);
     });
+  }
+
+  function mejorarCalidad(img) {
+    return new Promise((resolve, reject) => {
+      // Crea un canvas para la imagen
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+
+      // Obtiene el contexto 2D para el canvas
+      const ctx = canvas.getContext('2d');
+
+      // Activa el suavizado
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+
+      ctx.drawImage(img, 0, 0);
+
+      const imgResultado = new misNombres.Image();
+      imgResultado.src = canvas.toDataURL();
+
+      // Descargar la imagen
+      /* const link = document.createElement('a');
+      link.download = `mejorarCalidad.png`;
+      link.href = imgResultado.src;
+      link.click(); */
+
+      resolve(imgResultado);
+    });
+  }
+
+  async function textoImagen(imageFile) {
+    setBloqueoTexto(true)
+    const imageUrl = URL.createObjectURL(imageFile);
+    Tesseract.recognize(
+      imageUrl,
+      'spa',
+      {
+        logger: m => console.log(m),
+        psm: 6, // Modo de Segmentación de Página: Bloque de texto uniforme
+        oem: 1, // Modo de Motor de Reconocimiento de Texto: OCR predeterminado
+        tessedit_char_whitelist: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', // Solo reconocer estos caracteres
+      }
+    ).then(({ data: { text } }) => {
+      //console.log(text);
+      setTexto(text)
+      setBloqueoTexto(false)
+    })
+
   }
 
   function descargarImagen() {
@@ -172,7 +246,10 @@ const Archivo = ({ codigoBase64 }) => {
   }
   const cargar = () => {
     return (
-      <div> <i className="pi pi-spin pi-cog" style={{ fontSize: '2rem', color: 'var(--primary-color)' }}></i> </div>
+      <div>
+        <span>Cargando Texto Extraido</span>
+        <i className="pi pi-spin pi-cog" style={{ fontSize: '2rem', color: 'var(--primary-color)' }} />
+      </div>
     );
   }
 
@@ -297,6 +374,9 @@ const Archivo = ({ codigoBase64 }) => {
         onClear={onTemplateClear}
       //onProgress={(e) => setProgress(e.originalEvent.loaded / e.originalEvent.total * 100)}
       />
+      <BlockUI blocked={bloqueoTexto} template={cargar} >
+        <InputTextarea rows={10} className='w-full mt-5' value={texto} />
+      </BlockUI>
     </>
   );
 };
