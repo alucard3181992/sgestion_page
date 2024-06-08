@@ -5,7 +5,7 @@ import { InputText } from 'primereact/inputtext';
 import { useUpdateEffect } from 'primereact/hooks';
 
 const SimpleInputTextoMemo = ({ campo, cliente, setCliente, original }) => {
-    console.log("ME LLAMAN SimpleInputTextoMemo", campo, " CLIENTE ", cliente);
+    //console.log("ME LLAMAN SimpleInputTextoMemo", campo, " CLIENTE ", cliente);
     //const [valor, setValor] = useState(cliente[campo]);
     const [titulo] = useState(Funciones.formatearCadena(campo))
     const [modificado, setModificado] = useState(false)
