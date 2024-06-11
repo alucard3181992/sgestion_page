@@ -8,7 +8,7 @@ export default function About() {
                 <div className="col-12 md:col-6 lg:col-6" >
                     <div className="text-center">
                         <div className="font-bold text-3xl mb-2">
-                            Hola, soy Alucard
+                            Hola
                         </div>
                         <div className="font-bold text-3xl mb-2">
                             Me encanta construir aplicaciones web.
