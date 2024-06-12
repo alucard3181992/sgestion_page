@@ -11,20 +11,30 @@ import { BlockUI } from 'primereact/blockui';
 import { Tooltip } from 'primereact/tooltip';
 import { OverlayPanel } from 'primereact/overlaypanel';
 import { Sidebar } from 'primereact/sidebar';
+import { Toast } from 'primereact/toast';
 
 import Link from 'next/link';
+import { temas } from '@/components/Menu/data';
+import { CambioContraseña } from '@/components/Componentes/SimpleCambioDatos';
+
 import { PrincipalContext } from '@/context/PrincipalContext';
 import { useContext, useState, useEffect, useRef } from "react";
+
 const Menus = () => {
-    const { datos, salir, usuario, perfil, cargar, menuBar, setTema, tema } = useContext(PrincipalContext);
-    const [bloqueo, setBloqueo] = useState(true);
+    const { datos, salir, usuario, perfil, cargar, menuBar, cambioTema, tema } = useContext(PrincipalContext)
+    const [bloqueo, setBloqueo] = useState(true)
+    const [cambioC, setCambioC] = useState(false)
     const [verCon, setVerCon] = useState({ p: "password", i: "pi pi-lock" })
-    const [roles, setRoles] = useState(null);
+    const [roles, setRoles] = useState(null)
+
     const router = useRouter()
-    const op = useRef(null);
+    const op = useRef(null)
+    const toast = useRef(null)
+    const msgs = useRef(null)
 
     useEffect(() => {
         if (datos.message !== "Sin Acceso") {
+            //console.log("USUARIO ES ", usuario);
             if (datos.roles.length !== 0) {
 
                 // 1. Ordenar por nombreR
@@ -43,6 +53,7 @@ const Menus = () => {
                 });
                 setRoles(datos)
                 setBloqueo(false)
+                temas.sort((a, b) => a.nombre.localeCompare(b.nombre))
             }
             else {
                 setBloqueo(true)
@@ -60,9 +71,11 @@ const Menus = () => {
             <div className={className}>
                 <button className={options.togglerClassName} onClick={options.onTogglerClick} >
                     <span className={toggleIcon} data-pr-tooltip={menuBar !== "" ? titulo : ""}></span>
-                    <Ripple />
+                    {/* <Ripple pt={{
+                        root: { style: { background: 'rgba(75, 175, 80, 0.3)' } }
+                    }} /> */}
                 </button>
-                <span className={titleClassName} style={style}>{titulo}</span>
+                <span className={titleClassName} style={style}>{titulo.toLocaleUpperCase()}</span>
             </div>
         );
     };
@@ -75,13 +88,21 @@ const Menus = () => {
         }
     }
 
+    const mensajeFlotante = (Sticky, Estado, Titulo, Mensaje, Vida) => {
+        toast.current.show({ sticky: Sticky, severity: Estado, summary: `${Titulo} `, detail: Mensaje, life: Vida })
+    }
+
+    const mensajeEstatico = (Sticky, Estado, Titulo, Mensaje, Vida) => {
+        msgs.current.show({ sticky: Sticky, severity: Estado, summary: `${Titulo} `, detail: Mensaje, life: Vida })
+    }
+
     const VerUsuario = () => {
         return (
             <>
                 <Card className="mb-3 font-bold" style={{ textAlign: 'center' }} footer={usuario.concat} >
                     {perfil !== null ?
                         <Image src={perfil} alt="Foto Actual" preview className="Imgnormal1 border-round" style={{ height: "150px", width: "100%" }} /> :
-                        <Avatar label={usuario.concat.slice(0, 2)} size="large" style={{ backgroundColor: '#2196F3', color: '#ffffff' }} />}
+                        <Avatar label={usuario.concat.slice(0, 2).toLocaleUpperCase()} size="large" style={{ backgroundColor: '#2196F3', color: '#ffffff', height: "150px", width: "100%" }} />}
                     <div className="p-inputgroup mb-3">
                         <span className="p-inputgroup-addon">
                             <i className="pi pi-user"></i>
@@ -95,7 +116,14 @@ const Menus = () => {
                         <InputText id="password" value={usuario.contrasenia} type={verCon.p} className="w-full" disabled />
                     </div>
                     <Button onClick={salir} style={{ marginTop: 20 }} >Cerrar Session</Button>
+                    <Button onClick={(e) => { e.preventDefault(), setCambioC(true) }} style={{ marginTop: 20 }} label='Cambiar Contraseña' />
                 </Card>
+                {cambioC && <CambioContraseña
+                    dialog={cambioC}
+                    setDialog={setCambioC}
+                    mensajeEstatico={mensajeEstatico}
+                    mensajeFlotante={mensajeFlotante}
+                    msgs={msgs} />}
             </>
         )
     }
@@ -111,9 +139,8 @@ const Menus = () => {
             </>
         )
     }
-
     return (
-        <>
+        <> <Toast ref={toast} position="bottom-center" />
             <TabView style={{ paddingLeft: 10 }}>
                 <TabPanel leftIcon="pi pi-bars" style={{ height: '100%' }}>
                     <Tooltip target=".pi" />
@@ -142,46 +169,18 @@ const Menus = () => {
                     <Tooltip target=".pi" />
                     <div className="titulo" >Temas</div>
                     <ul>
-                        <li onClick={(event) => { event.preventDefault(); setTema('arya-blue') }} className={tema === 'arya-blue' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "arya-blue" : ""} /><span>arya-blue</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('arya-green') }} className={tema === 'arya-green' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "arya-green" : ""} /><span>arya-green</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('arya-orange') }} className={tema === 'arya-orange' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "arya-orange" : ""} /><span>arya-orange</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('arya-purple') }} className={tema === 'arya-purple' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "arya-purple" : ""} /><span>arya-purple</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('bootstrap4-light-blue') }} className={tema === 'bootstrap4-light-blue' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "bootstrap4-light-blue" : ""} /><span>bootstrap4-light-blue</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('bootstrap4-light-purple') }} className={tema === 'bootstrap4-light-purple' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "bootstrap4-light-purple" : ""} /><span>bootstrap4-light-purple</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('bootstrap4-dark-blue') }} className={tema === 'bootstrap4-dark-blue' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "bootstrap4-dark-blue" : ""} /><span>bootstrap4-dark-blue</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('bootstrap4-dark-purple') }} className={tema === 'bootstrap4-dark-purple' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "bootstrap4-dark-purple" : ""} /><span>bootstrap4-dark-purple</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('md-light-indigo') }} className={tema === 'md-light-indigo' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "md-light-indigo" : ""} /><span>md-light-indigo</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('md-light-deeppurple') }} className={tema === 'md-light-deeppurple' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "md-light-deeppurple" : ""} /><span>md-light-deeppurple</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('md-dark-indigo') }} className={tema === 'md-dark-indigo' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "md-dark-indigo" : ""} /><span>md-dark-indigo</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('md-dark-deeppurple') }} className={tema === 'md-dark-deeppurple' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "md-dark-deeppurple" : ""} /><span>md-dark-deeppurple</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('mdc-light-indigo') }} className={tema === 'mdc-light-indigo' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "mdc-light-indigo" : ""} /><span>mdc-light-indigo</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('mdc-light-deeppurple') }} className={tema === 'mdc-light-deeppurple' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "mdc-light-deeppurple" : ""} /><span>mdc-light-deeppurple</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('mdc-dark-indigo') }} className={tema === 'mdc-dark-indigo' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "mdc-dark-indigo" : ""} /><span>mdc-dark-indigo</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('mdc-dark-deeppurple') }} className={tema === 'mdc-dark-deeppurple' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "mdc-dark-deeppurple" : ""} /><span>mdc-dark-deeppurple</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('tailwind-light') }} className={tema === 'tailwind-light' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "tailwind-light" : ""} /><span>tailwind-light</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('fluent-light') }} className={tema === 'fluent-light' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "fluent-light" : ""} /><span>fluent-light</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('lara-light-blue') }} className={tema === 'lara-light-blue' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "lara-light-blue" : ""} /><span>lara-light-blue</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('lara-light-indigo') }} className={tema === 'lara-light-indigo' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "lara-light-indigo" : ""} /><span>lara-light-indigo</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('lara-light-purple') }} className={tema === 'lara-light-purple' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "lara-light-purple" : ""} /><span>lara-light-purple</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('lara-light-teal') }} className={tema === 'lara-light-teal' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "lara-light-teal" : ""} /><span>lara-light-teal</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('lara-dark-blue') }} className={tema === 'lara-dark-blue' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "lara-dark-blue" : ""} /><span>lara-dark-blue</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('lara-dark-indigo') }} className={tema === 'lara-dark-indigo' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "lara-dark-indigo" : ""} /><span>lara-dark-indigo</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('lara-dark-purple') }} className={tema === 'lara-dark-purple' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "lara-dark-purple" : ""} /><span>lara-dark-purple</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('lara-dark-teal') }} className={tema === 'lara-dark-teal' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "lara-dark-teal" : ""} /><span>lara-dark-teal</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('soho-light') }} className={tema === 'soho-light' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "soho-light" : ""} /><span>soho-light</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('soho-dark') }} className={tema === 'soho-dark' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "soho-dark" : ""} /><span>soho-dark</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('viva-light') }} className={tema === 'viva-light' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "viva-light" : ""} /><span>viva-light</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('viva-dark') }} className={tema === 'viva-dark' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "viva-dark" : ""} /><span>viva-dark</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('mira') }} className={tema === 'mira' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "mira" : ""} /><span>mira</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('nano') }} className={tema === 'nano' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "nano" : ""} /><span>nano</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('saga-blue') }} className={tema === 'saga-blue' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "saga-blue" : ""} /><span>saga-blue</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('saga-green') }} className={tema === 'saga-green' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "saga-green" : ""} /><span>saga-green</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('saga-orange') }} className={tema === 'saga-orange' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "saga-orange" : ""} /><span>saga-orange</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('saga-purple') }} className={tema === 'saga-purple' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "saga-purple" : ""} /><span>saga-purple</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('vela-blue') }} className={tema === 'vela-blue' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "vela-blue" : ""} /><span>vela-blue</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('vela-green') }} className={tema === 'vela-green' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "vela-green" : ""} /><span>vela-green</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('vela-orange') }} className={tema === 'vela-orange' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "vela-orange" : ""} /><span>vela-orange</span></li>
-                        <li onClick={(event) => { event.preventDefault(); setTema('vela-purple') }} className={tema === 'vela-purple' ? ' seleccionado menus tol' : ' menus tol'}><i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? "vela-purple" : ""} /><span>vela-purple</span></li>
+                        {temas && temas.map((e, index) => (
+                            <li key={index}
+                                onClick={(event) => { event.preventDefault(); cambioTema(e.nombre) }}
+                                className={tema === e.nombre ? ' seleccionado menus tol' : ' menus tol'}
+                            >
+                                <i className='pi pi-palette' data-pr-tooltip={menuBar !== "" ? e.nombre : ""}
+                                />
+                                <span>
+                                    {e.nombre}
+                                </span>
+                            </li>
+                        ))}
                     </ul>
                 </TabPanel>
             </TabView>

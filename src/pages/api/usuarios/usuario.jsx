@@ -102,8 +102,8 @@ const UsuarioBD = async (req, res) => {
         case "PUT": {
             try {
                 console.log("USUARIO MODIFICAR", req.body);
-                /* const { cliente, telefono } = req.body
-                const persona = cliente.persona
+                const { cliente, telefono } = req.body
+                const persona = cliente
                 const idpe = persona.idpe
                 const estado = true;
                 //console.log("NUEVO BODY", req.body);
@@ -148,7 +148,7 @@ const UsuarioBD = async (req, res) => {
                             }
                         }
                     }
-                }); */
+                });
                 return res.status(200).json({ message: "TODO BIEN" });
             } catch (error) {
                 console.log("ERROR", error);
