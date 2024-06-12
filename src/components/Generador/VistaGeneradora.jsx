@@ -9,6 +9,7 @@ import { DataScroller } from 'primereact/datascroller';
 
 import { CodigoGenerador } from "./CodigoGenerador";
 import { RenderizarCampos } from "./RenderizarCampos";
+import Navbar from "@/components/PaginasExterior/Navbar";
 
 import { GeneradorDeArrayTabla, generadorDeArrayTabla } from "./FuncionesGeneradora";
 import VistasDatos from "./VistaDatos";
@@ -106,6 +107,7 @@ function VistaGeneradora() {
     }, [])
     return (<React.Fragment>
         <GeneradorContextProvider>
+            <Navbar />
             <Vista />
         </GeneradorContextProvider>
     </React.Fragment>)

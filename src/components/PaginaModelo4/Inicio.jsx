@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "@/components/PaginaModelo4/Navbar";
+import Navbar from "@/components/PaginasExterior/Navbar";
 import MenubarTerminado from "../Componentes/MenuBar";
 import PaginaCreacion from "../PaginaCreacion/PaginaCreacion";
 import RegistroVenta from "./RegistroVenta";
@@ -8,7 +8,7 @@ const VistaInicio = () => {
 
 
     return (<React.Fragment>
-
+        <Navbar />
         <Presentacion />
         <MenubarTerminado />
         <PaginaCreacion />
