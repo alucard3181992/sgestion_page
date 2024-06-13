@@ -16,13 +16,13 @@ import RenderizarImagen from './ImagenFormulario';
 import RenderizarChips from './Chips';
 import RenderizarToggleButton from './ToggleButton';
 
-function VistaFormulario({ formulario, setFormulario, datosFormulario, datosCliente }) {
+function VistaFormulario({ formulario, setFormulario, datosFormulario, datosCliente, mensajeFlotante }) {
 
     const [telefonosOriginales, setTelefonosOriginales] = useState([])
     const [cliente, setCliente] = useState(null)
+    const [clienteOriginal, setClienteOriginal] = useState(null)
     const [cli, setCli] = useState([])
     const msgs = useRef(null);
-
     useEffect(() => {
         if (formulario) {
             if (!datosCliente) {
@@ -73,6 +73,7 @@ function VistaFormulario({ formulario, setFormulario, datosFormulario, datosClie
                     return acc;
                 }, {})
                 setCliente(clienteVacio2)
+                setClienteOriginal(clienteVacio2)
             }
         }
         //console.log(clienteVacio2);
@@ -107,15 +108,253 @@ function VistaFormulario({ formulario, setFormulario, datosFormulario, datosClie
         return acc;
     }, {})
 
+    /* const renderizarCampo = (campos) => {
+        const categorias = Object.keys(campos);
 
+        const renderizarCamposPorCategoria = (tipo) => {
+            return (tipo === "id" ? ""
+                :
+                <div key={tipo} className="col-12 md:col-6 lg:col-6"
+                    style={{
+                        borderRadius: '10px',
+                        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+                    }}>
+                    {campos[tipo].map((campo, index) => {
+                        switch (tipo) {
+                            case 'texto':
+                                return (
+                                    <RenderizarInputTexto
+                                        campo={campo}
+                                        cli={cli}
+                                        setCli={setCli}
+                                        cliente={cliente}
+                                        setCliente={setCliente}
+                                        key={index}
+                                    />
+                                );
+                            case 'checkbox':
+                                return (
+                                    <RenderizarCheckbox
+                                        campo={campo}
+                                        cli={cli}
+                                        setCli={setCli}
+                                        cliente={cliente}
+                                        setCliente={setCliente}
+                                        key={index}
+                                    />
+                                );
+                            case 'chips':
+                                return (
+                                    <RenderizarChips
+                                        campo={campo}
+                                        cli={cli}
+                                        setCli={setCli}
+                                        cliente={cliente}
+                                        setCliente={setCliente}
+                                        key={index}
+                                    />
+                                );
+                            case 'fecha':
+                                return (
+                                    <RenderizarFecha
+                                        campo={campo}
+                                        cli={cli}
+                                        setCli={setCli}
+                                        cliente={cliente}
+                                        setCliente={setCliente}
+                                        key={index}
+                                    />
+                                );
+                            case 'radiobutton':
+                                return (
+                                    <RenderizarRadiobutton
+                                        campo={campo}
+                                        cli={cli}
+                                        setCli={setCli}
+                                        cliente={cliente}
+                                        setCliente={setCliente}
+                                        key={index}
+                                    />
+                                );
+                            case 'listas':
+                                return (
+                                    <RenderizarDropdownLista
+                                        campo={campo}
+                                        cli={cli}
+                                        setCli={setCli}
+                                        cliente={cliente}
+                                        setCliente={setCliente}
+                                        key={index}
+                                    />
+                                );
+                            case 'imagen':
+                                return (
+                                    <RenderizarImagen
+                                        campo={campo}
+                                        cli={cli}
+                                        setCli={setCli}
+                                        cliente={cliente}
+                                        setCliente={setCliente}
+                                        key={index}
+                                    />
+                                );
+                            case 'toggleButton':
+                                return (
+                                    <RenderizarToggleButton
+                                        campo={campo}
+                                        cli={cli}
+                                        setCli={setCli}
+                                        cliente={cliente}
+                                        setCliente={setCliente}
+                                        key={index}
+                                    />
+                                );
+                            default:
+                                return null;
+                        }
+                    })}
+                </div>
+            );
+        };
 
+        return (
+            <div className="grid">
+                {categorias.map((categoria) => (
+                    renderizarCamposPorCategoria(categoria)
+                ))}
+            </div>
+        );
+    }; */
     const renderizarCampo = (campos) => {
+        const categorias = Object.keys(campos);
+
+        const renderizarCamposPorCategoria = (tipo) => {
+            // Verificar si hay campos en la categoría
+            if (campos[tipo].length === 0) {
+                return null;
+            }
+
+            return (tipo === "id" ? null : (
+                <div key={tipo} className="col-12 md:col-6 lg:col-6"
+                    style={{
+                        borderRadius: '10px',
+                        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+                    }}>
+                    {campos[tipo].map((campo, index) => {
+                        switch (tipo) {
+                            case 'texto':
+                                return (
+                                    <RenderizarInputTexto
+                                        campo={campo}
+                                        cli={cli}
+                                        setCli={setCli}
+                                        cliente={cliente}
+                                        setCliente={setCliente}
+                                        key={index}
+                                    />
+                                );
+                            case 'checkbox':
+                                return (
+                                    <RenderizarCheckbox
+                                        campo={campo}
+                                        cli={cli}
+                                        setCli={setCli}
+                                        cliente={cliente}
+                                        setCliente={setCliente}
+                                        key={index}
+                                    />
+                                );
+                            case 'chips':
+                                return (
+                                    <RenderizarChips
+                                        campo={campo}
+                                        cli={cli}
+                                        setCli={setCli}
+                                        cliente={cliente}
+                                        setCliente={setCliente}
+                                        key={index}
+                                    />
+                                );
+                            case 'fecha':
+                                return (
+                                    <RenderizarFecha
+                                        campo={campo}
+                                        cli={cli}
+                                        setCli={setCli}
+                                        cliente={cliente}
+                                        setCliente={setCliente}
+                                        key={index}
+                                    />
+                                );
+                            case 'radiobutton':
+                                return (
+                                    <RenderizarRadiobutton
+                                        campo={campo}
+                                        cli={cli}
+                                        setCli={setCli}
+                                        cliente={cliente}
+                                        setCliente={setCliente}
+                                        key={index}
+                                    />
+                                );
+                            case 'listas':
+                                return (
+                                    <RenderizarDropdownLista
+                                        campo={campo}
+                                        cli={cli}
+                                        setCli={setCli}
+                                        cliente={cliente}
+                                        setCliente={setCliente}
+                                        key={index}
+                                    />
+                                );
+                            case 'imagen':
+                                return (
+                                    <RenderizarImagen
+                                        campo={campo}
+                                        cli={cli}
+                                        setCli={setCli}
+                                        cliente={cliente}
+                                        setCliente={setCliente}
+                                        key={index}
+                                    />
+                                );
+                            case 'toggleButton':
+                                return (
+                                    <RenderizarToggleButton
+                                        campo={campo}
+                                        cli={cli}
+                                        setCli={setCli}
+                                        cliente={cliente}
+                                        setCliente={setCliente}
+                                        key={index}
+                                    />
+                                );
+                            default:
+                                return null;
+                        }
+                    })}
+                </div>
+            ));
+        };
+
+        return (
+            <div className="grid">
+                {categorias.map((categoria) => (
+                    renderizarCamposPorCategoria(categoria)
+                ))}
+            </div>
+        );
+    };
+
+    /* const renderizarCampo = (campos) => {
         return (
             <form>
                 {Object.keys(campos).map((tipo) => {
                     return campos[tipo].map((campo, index) => {
                         switch (tipo) {
                             case 'texto':
+                                console.log("RENDERIZO", campo);
                                 return <RenderizarInputTexto
                                     campo={campo}
                                     cli={cli}
@@ -194,26 +433,32 @@ function VistaFormulario({ formulario, setFormulario, datosFormulario, datosClie
                 })}
             </form>
         )
-    }
+    } */
 
     const mensajeEstatico2 = (Sticky, Estado, Titulo, Mensaje, Vida) => {
         msgs.current.show({ sticky: Sticky, severity: Estado, summary: `${Titulo} `, detail: Mensaje, life: Vida })
     }
 
-    const agregar = () => {
+    const agregar = async () => {
         const validacion = Funciones.validar(cliente, clienteRequerido, clienteAyuda, cli, setCli)
         if (validacion.isValid) {
-            const resultadoComparacion = datosFormulario.telefono ? Funciones.compararTelefonos(cliente, telefonosOriginales) : "Nada"
-            const datosValidos = ({
-                ...cliente,
-                "telefonos": resultadoComparacion
-            })
+            let cambios = null
+            let titulo = ""
             switch (datosFormulario.botonTitulo) {
                 case "Editar":
-                    datosFormulario.modificar(datosValidos)
+                    const cambios2 = Funciones.compararObjetos(clienteOriginal, cliente, ["idpe", "idu"])
+                    if (cambios2) {
+                        cambios = await datosFormulario.modificar(cambios2)
+                        titulo = "DATOS MODIFICADOS CORRECTAMENTE"
+                    } else {
+                        cambios = {
+                            message: "NO SE ENCONTRARON CAMBIOS"
+                        }
+                    }
                     break;
                 case "Guardar":
-                    datosFormulario.nuevo(datosValidos)
+                    cambios = await datosFormulario.nuevo(cliente)
+                    titulo = "DATOS REGISTRADOS CORRECTAMENTE"
                     break;
                 case "Mostrar":
                     setFormulario(false)
@@ -221,8 +466,18 @@ function VistaFormulario({ formulario, setFormulario, datosFormulario, datosClie
                 default:
                     break;
             }
+            if (cambios) {
+                if (cambios.message === "TODO BIEN") {
+                    setFormulario(false)
+                    mensajeFlotante(false, "success", "EXITO", titulo, 4000)
+                } else {
+                    mensajeEstatico2(false, "error", "********", cambios.message, 4000);
+                }
+            } else {
+                mensajeEstatico2(false, "error", "********", "OPERACION CANCELADA", 4000);
+            }
         } else {
-            mensajeEstatico2(false, "error", "********", validacion.mens.join(",\n"), 40000);
+            mensajeEstatico2(false, "error", "********", validacion.mens.join(",\n"), 4000);
         }
     }
 
@@ -247,23 +502,26 @@ function VistaFormulario({ formulario, setFormulario, datosFormulario, datosClie
             modal className="p-fluid"
         >
             <Messages ref={msgs} />
-            {/* {JSON.stringify(cliente)}
-            {JSON.stringify(cli)}
-            {JSON.stringify(telefonosOriginales)} */}
             {datosFormulario.campos.map((campo, index) => (
                 <div style={{ marginTop: 20 }} key={index}
-                    className={datosFormulario.botonTitulo === "Mostrar" ? "intocable " : ""}
+                    className={datosFormulario.botonTitulo === "Mostrar" ? "intocable" : ""}
                 >
                     {cliente && renderizarCampo(campo)}
                 </div>
             ))}
-
         </Dialog>}
     </React.Fragment>)
 }
-export default function FormularioPrincipal({ formulario, setFormulario, datosFormulario, datosCliente }) {
+export default function FormularioPrincipal({ formulario, setFormulario, datosFormulario, datosCliente, mensajeFlotante }) {
     return (<>
-        <VistaFormulario formulario={formulario} setFormulario={setFormulario}
-            datosCliente={datosCliente} datosFormulario={datosFormulario}></VistaFormulario>
+        <VistaFormulario
+            formulario={formulario}
+            setFormulario={setFormulario}
+            datosCliente={datosCliente}
+            datosFormulario={datosFormulario}
+            mensajeFlotante={mensajeFlotante}
+        >
+
+        </VistaFormulario>
     </>)
 }

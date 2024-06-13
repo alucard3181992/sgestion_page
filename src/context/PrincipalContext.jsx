@@ -126,6 +126,11 @@ const PrincipalContextProvider = (props) => {
         setMensaje("Verificando...")
     }
 
+    const cambioTema = (nombre) => {
+        setTema(nombre)
+        //agregarConf(usuario.idu, "tema", nombre)
+    }
+
     const cargar = () => {
         return (
             <div> <i className="pi pi-spin pi-cog" style={{ fontSize: '2rem', color: 'var(--primary-color)' }}></i> </div>
@@ -162,6 +167,7 @@ const PrincipalContextProvider = (props) => {
                 empresa,
                 scroll,
                 setScroll,
+                cambioTema
             }}
         >
             {props.children}

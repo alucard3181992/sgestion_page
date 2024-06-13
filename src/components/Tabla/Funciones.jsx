@@ -162,6 +162,77 @@ export const Funciones = {
             .replace(/^./, function (str) {
                 return str.toUpperCase(); // Convierte la primera letra a mayúscula
             });
+    },
+    compararObjetosOriginal(objetoOriginal, objetoModificado, clavesAdicionales = []) {
+        const resultado = {};
+
+        // Función para encontrar diferencias en listas
+        function diffArrays(arr1, arr2) {
+            const eliminado = arr1.filter(item => !arr2.includes(item));
+            const nuevos = arr2.filter(item => !arr1.includes(item));
+            return { eliminado, nuevos };
+        }
+
+        // Comparar cada campo del objeto
+        for (const key in objetoOriginal) {
+            if (objetoOriginal.hasOwnProperty(key)) {
+                if (Array.isArray(objetoOriginal[key])) {
+                    const { eliminado, nuevos } = diffArrays(objetoOriginal[key], objetoModificado[key] || []);
+                    if (eliminado.length || nuevos.length) {
+                        resultado[key] = { eliminado, nuevos };
+                    }
+                } else if (objetoOriginal[key] !== objetoModificado[key]) {
+                    resultado[key] = objetoModificado[key];
+                }
+            }
+        }
+
+        // Incluir claves adicionales
+        for (const key of clavesAdicionales) {
+            if (objetoOriginal.hasOwnProperty(key)) {
+                resultado[key] = objetoOriginal[key];
+            }
+        }
+
+        return resultado;
+    },
+    compararObjetos(objetoOriginal, objetoModificado, clavesAdicionales = []) {
+        const resultado = {};
+
+        // Función para encontrar diferencias en listas
+        function diffArrays(arr1, arr2) {
+            const eliminado = arr1.filter(item => !arr2.includes(item));
+            const nuevos = arr2.filter(item => !arr1.includes(item));
+            return { eliminado, nuevos };
+        }
+
+        // Comparar cada campo del objeto
+        let hayCambios = false;
+        for (const key in objetoOriginal) {
+            if (objetoOriginal.hasOwnProperty(key)) {
+                if (Array.isArray(objetoOriginal[key])) {
+                    const { eliminado, nuevos } = diffArrays(objetoOriginal[key], objetoModificado[key] || []);
+                    if (eliminado.length || nuevos.length) {
+                        resultado[key] = { eliminado, nuevos };
+                        hayCambios = true;
+                    }
+                } else if (objetoOriginal[key] !== objetoModificado[key]) {
+                    resultado[key] = objetoModificado[key];
+                    hayCambios = true;
+                }
+            }
+        }
+
+        // Incluir claves adicionales si hay cambios
+        if (hayCambios) {
+            for (const key of clavesAdicionales) {
+                if (objetoOriginal.hasOwnProperty(key)) {
+                    resultado[key] = objetoOriginal[key];
+                }
+            }
+        }
+
+        return hayCambios ? resultado : null;
     }
 
 }
