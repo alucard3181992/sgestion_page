@@ -34,6 +34,7 @@ export async function middleware(request) {
                 || "/Principal/Principal" === request.nextUrl.pathname
                 || "/Usuario/GUsuario" === request.nextUrl.pathname
                 || "/Cliente/GCliente" === request.nextUrl.pathname
+                || "/Backup/GBackup" === request.nextUrl.pathname
                 || "/IngresoSistema/Ingreso" === request.nextUrl.pathname) {
                 return NextResponse.next()
             } else {
