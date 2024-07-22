@@ -3,6 +3,7 @@ import VistaGeneradora from "@/components/Generador/VistaGeneradora";
 import AuthWrapper from "@/components/Componentes/AuthWrapper";
 import VentaExcel from "@/components/Venta2/VentaExcel";
 import VistaPrincipalVenta from "@/components/Venta/Venta";
+import VistaPrincipalVenta3 from "@/components/Venta3/Venta3";
 import { MultiStateCheckbox } from "primereact/multistatecheckbox";
 
 export default function Modelo4() {
@@ -26,7 +27,7 @@ export default function Modelo4() {
             </div>
             {vista === "VentaProductos" ? <VistaPrincipalVenta />
                 :
-                vista === "VentaExcel" ? <VentaExcel /> : "NADA DE NADA"}
+                vista === "VentaExcel" ? <VentaExcel /> : <VistaPrincipalVenta3 />}
 
         </AuthWrapper>
     </React.Fragment>)
