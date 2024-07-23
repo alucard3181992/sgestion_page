@@ -15,7 +15,11 @@ const FormularioSD = ({ cliente, setCliente, buscar = false, lista = [], element
             if (found) {
                 setCliente(found);
             } else {
-                setCliente(clienteVacio)
+                const clienteNuevo = {
+                    ...clienteVacio,
+                    [elemento]: cliente[elemento]
+                }
+                setCliente(clienteNuevo)
             }
         }
     };

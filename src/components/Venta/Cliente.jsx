@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { clientes } from "./data";
 import FormularioPrincipal from "../Tabla/Formulario";
+import FormularioPrincipalND from "../Tabla/FormularioNDialog";
 
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
@@ -8,6 +9,7 @@ import { Card } from "primereact/card";
 import { Tooltip } from "primereact/tooltip";
 import { Divider } from "primereact/divider";
 import { Button } from "primereact/button";
+import { ObtenerObjetoCampo } from "../Func/Campos";
 
 const VistaCliente = ({
     vista,
@@ -27,14 +29,27 @@ const VistaCliente = ({
         ap: "",
         am: "",
     }
+    const objetosConCategorias = [
+        { objeto: clienteDatos, categoria: "texto" },
+    ];
+    const camposObtenidos = ObtenerObjetoCampo(objetosConCategorias);
 
+    const NuevosCampos = {
+        ...formulario,
+        campos: [{ ...camposObtenidos }]
+    }
     const buscarCliente = (valor) => {
+        setShowForm(true)
         const persona = clientes.filter((e) => e.cedula === valor)
         if (persona.length) {
             setCliente(persona[0])
             setEncontrado(true)
         } else {
-            setCliente(clienteDatos)
+            const nuevoCliente = {
+                ...clienteDatos,
+                cedula: valor
+            }
+            setCliente(nuevoCliente)
             setEncontrado(false)
         }
     }
@@ -88,28 +103,53 @@ const VistaCliente = ({
         </Card>
     );
 
+    const [showForm, setShowForm] = useState(false);
+
+    const handleToggle = () => {
+        setShowForm(!showForm);
+    };
+
     const ClienteNoEncontrado = () => (
-                <Card
-                    title={<span className="text-danger">Cliente No Encontrado</span>}
-                    className="p-shadow-5 text-center"
-                    style={{
-                        width: '100%',
-                        maxWidth: '400px',
-                        borderRadius: '1rem',
-                        padding: '2rem',
-                    }}
-                >
-                    <p className="text-lg">El cliente no se encuentra en nuestra base de datos. Por favor, intente con otra búsqueda.</p>
+        <Card
+            title={<span className="text-danger">Cliente No Encontrado</span>}
+            className="p-shadow-5 text-center"
+            style={{
+                width: '100%',
+                maxWidth: '400px',
+                borderRadius: '1rem',
+                padding: '2rem',
+            }}
+        >
+            {showForm ? <React.Fragment><p className="text-lg">El cliente no se encuentra en nuestra base de datos. Por favor, intente con otra búsqueda.</p>
+                <Button
+                    label="Nuevo"
+                    icon="pi pi-plus"
+                    className="p-button-rounded p-button-success p-mt-3"
+                    /* onClick={(e) => {
+                        e.preventDefault()
+                        setDocumento(true)
+                    }} */
+                    onClick={handleToggle}
+                />
+            </React.Fragment>
+                :
+                <React.Fragment>
+
+                    <FormularioPrincipalND
+                        setFormulario={setDocumento}
+                        formulario={documento}
+                        datosFormulario={NuevosCampos}
+                        datosCliente={cliente}
+                        columnas={"col-12"} />
                     <Button
-                        label="Nuevo"
-                        icon="pi pi-plus"
-                        className="p-button-rounded p-button-success p-mt-3"
-                        onClick={(e) => {
-                            e.preventDefault()
-                            setDocumento(true)
-                        }}
+                        label="Volver"
+                        iconPos="right"
+                        icon="pi pi-arrow-left"
+                        className="p-button-danger p-mt-3"
+                        onClick={handleToggle}
                     />
-                </Card>
+                </React.Fragment>}
+        </Card>
     );
 
     return (<React.Fragment>
@@ -131,7 +171,7 @@ const VistaCliente = ({
             <FormularioPrincipal
                 setFormulario={setDocumento}
                 formulario={documento}
-                datosFormulario={formulario}
+                datosFormulario={NuevosCampos}
                 datosCliente={cliente} />
         </Dialog>
     </React.Fragment>)

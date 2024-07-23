@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 
 import { Button } from "primereact/button";
-import { Dialog } from 'primereact/dialog';
 import { Messages } from 'primereact/messages';
 
 import { Funciones } from './Funciones';
@@ -16,7 +15,7 @@ import RenderizarImagen from './ImagenFormulario';
 import RenderizarChips from './Chips';
 import RenderizarToggleButton from './ToggleButton';
 
-function VistaFormulario({ formulario, setFormulario, datosFormulario, datosCliente, mensajeFlotante }) {
+function VistaFormulario({ formulario, setFormulario, datosFormulario, datosCliente, mensajeFlotante, columnas }) {
 
     const [telefonosOriginales, setTelefonosOriginales] = useState([])
     const [cliente, setCliente] = useState(null)
@@ -24,7 +23,7 @@ function VistaFormulario({ formulario, setFormulario, datosFormulario, datosClie
     const [cli, setCli] = useState([])
     const msgs = useRef(null);
     useEffect(() => {
-        if (formulario) {
+        if (true) {
             if (!datosCliente) {
                 const clienteVacio = datosFormulario.campos.reduce((acc, tipo) => {
                     Object.keys(tipo).forEach((key) => {
@@ -79,8 +78,6 @@ function VistaFormulario({ formulario, setFormulario, datosFormulario, datosClie
         //console.log(clienteVacio2);
     }, [formulario])
 
-
-
     function cerrarFomrulario() {
         setFormulario(false)
         setTelefonosOriginales([])
@@ -108,123 +105,6 @@ function VistaFormulario({ formulario, setFormulario, datosFormulario, datosClie
         return acc;
     }, {})
 
-    /* const renderizarCampo = (campos) => {
-        const categorias = Object.keys(campos);
-
-        const renderizarCamposPorCategoria = (tipo) => {
-            return (tipo === "id" ? ""
-                :
-                <div key={tipo} className="col-12 md:col-6 lg:col-6"
-                    style={{
-                        borderRadius: '10px',
-                        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-                    }}>
-                    {campos[tipo].map((campo, index) => {
-                        switch (tipo) {
-                            case 'texto':
-                                return (
-                                    <RenderizarInputTexto
-                                        campo={campo}
-                                        cli={cli}
-                                        setCli={setCli}
-                                        cliente={cliente}
-                                        setCliente={setCliente}
-                                        key={index}
-                                    />
-                                );
-                            case 'checkbox':
-                                return (
-                                    <RenderizarCheckbox
-                                        campo={campo}
-                                        cli={cli}
-                                        setCli={setCli}
-                                        cliente={cliente}
-                                        setCliente={setCliente}
-                                        key={index}
-                                    />
-                                );
-                            case 'chips':
-                                return (
-                                    <RenderizarChips
-                                        campo={campo}
-                                        cli={cli}
-                                        setCli={setCli}
-                                        cliente={cliente}
-                                        setCliente={setCliente}
-                                        key={index}
-                                    />
-                                );
-                            case 'fecha':
-                                return (
-                                    <RenderizarFecha
-                                        campo={campo}
-                                        cli={cli}
-                                        setCli={setCli}
-                                        cliente={cliente}
-                                        setCliente={setCliente}
-                                        key={index}
-                                    />
-                                );
-                            case 'radiobutton':
-                                return (
-                                    <RenderizarRadiobutton
-                                        campo={campo}
-                                        cli={cli}
-                                        setCli={setCli}
-                                        cliente={cliente}
-                                        setCliente={setCliente}
-                                        key={index}
-                                    />
-                                );
-                            case 'listas':
-                                return (
-                                    <RenderizarDropdownLista
-                                        campo={campo}
-                                        cli={cli}
-                                        setCli={setCli}
-                                        cliente={cliente}
-                                        setCliente={setCliente}
-                                        key={index}
-                                    />
-                                );
-                            case 'imagen':
-                                return (
-                                    <RenderizarImagen
-                                        campo={campo}
-                                        cli={cli}
-                                        setCli={setCli}
-                                        cliente={cliente}
-                                        setCliente={setCliente}
-                                        key={index}
-                                    />
-                                );
-                            case 'toggleButton':
-                                return (
-                                    <RenderizarToggleButton
-                                        campo={campo}
-                                        cli={cli}
-                                        setCli={setCli}
-                                        cliente={cliente}
-                                        setCliente={setCliente}
-                                        key={index}
-                                    />
-                                );
-                            default:
-                                return null;
-                        }
-                    })}
-                </div>
-            );
-        };
-
-        return (
-            <div className="grid">
-                {categorias.map((categoria) => (
-                    renderizarCamposPorCategoria(categoria)
-                ))}
-            </div>
-        );
-    }; */
     const renderizarCampo = (campos) => {
         const categorias = Object.keys(campos);
 
@@ -235,7 +115,7 @@ function VistaFormulario({ formulario, setFormulario, datosFormulario, datosClie
             }
 
             return (tipo === "id" ? null : (
-                <div key={tipo} className="col-12 md:col-12 lg:col-12"
+                <div key={tipo} className={columnas}
                     style={{
                         borderRadius: '10px',
                         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
@@ -347,94 +227,6 @@ function VistaFormulario({ formulario, setFormulario, datosFormulario, datosClie
         );
     };
 
-    /* const renderizarCampo = (campos) => {
-        return (
-            <form>
-                {Object.keys(campos).map((tipo) => {
-                    return campos[tipo].map((campo, index) => {
-                        switch (tipo) {
-                            case 'texto':
-                                console.log("RENDERIZO", campo);
-                                return <RenderizarInputTexto
-                                    campo={campo}
-                                    cli={cli}
-                                    setCli={setCli}
-                                    cliente={cliente}
-                                    setCliente={setCliente}
-                                    key={index}
-                                />
-                            case 'checkbox':
-                                return <RenderizarCheckbox
-                                    campo={campo}
-                                    cli={cli}
-                                    setCli={setCli}
-                                    cliente={cliente}
-                                    setCliente={setCliente}
-                                    key={index}
-                                />
-                            case 'radiobutton':
-                                return <RenderizarRadiobutton
-                                    campo={campo}
-                                    cli={cli}
-                                    setCli={setCli}
-                                    cliente={cliente}
-                                    setCliente={setCliente}
-                                    key={index}
-                                />
-                            case 'fecha':
-                                return <RenderizarFecha
-                                    campo={campo}
-                                    cli={cli}
-                                    setCli={setCli}
-                                    cliente={cliente}
-                                    setCliente={setCliente}
-                                    key={index}
-                                />
-                            case 'listas':
-                                return <RenderizarDropdownLista
-                                    campo={campo}
-                                    cli={cli}
-                                    setCli={setCli}
-                                    cliente={cliente}
-                                    setCliente={setCliente}
-                                    key={index}
-                                />
-                            case 'imagen':
-                                return <RenderizarImagen
-                                    campo={campo}
-                                    cli={cli}
-                                    setCli={setCli}
-                                    cliente={cliente}
-                                    setCliente={setCliente}
-                                    key={index}
-                                />
-                            case 'chips':
-                                return <RenderizarChips
-                                    campo={campo}
-                                    cli={cli}
-                                    setCli={setCli}
-                                    cliente={cliente}
-                                    setCliente={setCliente}
-                                    key={index}
-                                />
-                            case 'toggleButton':
-                                return <RenderizarToggleButton
-                                    campo={campo}
-                                    cli={cli}
-                                    setCli={setCli}
-                                    cliente={cliente}
-                                    setCliente={setCliente}
-                                    key={index}
-                                />
-                            default:
-                                return null;
-                        }
-                    });
-                })}
-            </form>
-        )
-    } */
-
     const mensajeEstatico2 = (Sticky, Estado, Titulo, Mensaje, Vida) => {
         msgs.current.show({ sticky: Sticky, severity: Estado, summary: `${Titulo} `, detail: Mensaje, life: Vida })
     }
@@ -483,7 +275,7 @@ function VistaFormulario({ formulario, setFormulario, datosFormulario, datosClie
 
     const footer = (
         <React.Fragment>
-            <Button label="Cancelar" icon="pi pi-times" severity='danger' onClick={cerrarFomrulario} />
+            {/* <Button label="Cancelar" icon="pi pi-times" severity='danger' onClick={cerrarFomrulario} /> */}
             <Button label={datosFormulario.botonTitulo} icon="pi pi-check" onClick={agregar} />
         </React.Fragment>
     )
@@ -491,28 +283,18 @@ function VistaFormulario({ formulario, setFormulario, datosFormulario, datosClie
 
     //2023-11-17T04:00:00.000Z"
     return (<React.Fragment>
-
-        {formulario && <Dialog
-            header={datosFormulario.formularioTitulo + "(" + datosFormulario.botonTitulo + ")"}
-            visible={formulario}
-            style={{ width: '62rem' }}
-            breakpoints={{ '960px': '75vw', '641px': '90vw' }}
-            onHide={cerrarFomrulario}
-            footer={footer}
-            modal className="p-fluid"
-        >
-            <Messages ref={msgs} />
-            {datosFormulario.campos.map((campo, index) => (
-                <div style={{ marginTop: 20 }} key={index}
-                    className={datosFormulario.botonTitulo === "Mostrar" ? "intocable" : ""}
-                >
-                    {cliente && renderizarCampo(campo)}
-                </div>
-            ))}
-        </Dialog>}
+        <Messages ref={msgs} />
+        {datosFormulario.campos.map((campo, index) => (
+            <div style={{ marginTop: 20 }} key={index}
+                className={datosFormulario.botonTitulo === "Mostrar" ? "intocable" : ""}
+            >
+                {cliente && renderizarCampo(campo)}
+            </div>
+        ))}
+        {footer}
     </React.Fragment>)
 }
-export default function FormularioPrincipal({ formulario, setFormulario, datosFormulario, datosCliente, mensajeFlotante }) {
+export default function FormularioPrincipalND({ formulario, setFormulario, datosFormulario, datosCliente, mensajeFlotante, columnas }) {
     return (<>
         <VistaFormulario
             formulario={formulario}
@@ -520,6 +302,7 @@ export default function FormularioPrincipal({ formulario, setFormulario, datosFo
             datosCliente={datosCliente}
             datosFormulario={datosFormulario}
             mensajeFlotante={mensajeFlotante}
+            columnas={columnas}
         >
 
         </VistaFormulario>
