@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SaleForm from './SaleForm';
+import Tabla2 from '../Tabla/Tabla2';
 
 const products = [
     {
@@ -25,6 +26,31 @@ const products = [
         inventoryStatus: 'INSTOCK',
         rating: 4
     },
+
+    {
+        id: '1002',
+        code: 'zz21cz3c1',
+        name: 'Blue Band',
+        description: 'Product Description',
+        image: 'blue-band.jpg',
+        price: 79,
+        category: 'Fitness',
+        quantity: 2,
+        inventoryStatus: 'LOWSTOCK',
+        rating: 3
+    },
+    {
+        id: '1003',
+        code: '244wgerg2',
+        name: 'Blue T-Shirt',
+        description: 'Product Description',
+        image: 'blue-t-shirt.jpg',
+        price: 29,
+        category: 'Clothing',
+        quantity: 25,
+        inventoryStatus: 'INSTOCK',
+        rating: 5
+    },
 ];
 
 const customers = [
@@ -33,7 +59,10 @@ const customers = [
 ];
 
 const VistaPrincipalVenta3 = () => {
-    return (<SaleForm initialProducts={products} initialCustomers={customers} />
+    return (<React.Fragment>
+        <SaleForm initialProducts={products} initialCustomers={customers} />
+        {/* <Tabla2 lista={products}  /> */}
+    </React.Fragment>
     )
 }
 export default VistaPrincipalVenta3

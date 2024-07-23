@@ -3,6 +3,7 @@ import ProductList from './ProductList';
 import CustomerSelector from './CustomerSelector';
 import SaleDetails from './SaleDetails';
 import SaleTotals from './SaleTotals';
+import Tabla2 from '../Tabla/Tabla2';
 
 const SaleForm = ({ initialProducts, initialCustomers }) => {
     const [products] = useState(initialProducts);
@@ -28,16 +29,17 @@ const SaleForm = ({ initialProducts, initialCustomers }) => {
 
     return (
         <div className="p-grid">
-            <div className="p-col-12 p-md-6">
+            <div className="p-col-12 p-md-6 mb-5">
                 <CustomerSelector customers={customers} onAddCustomer={addNewCustomer} />
             </div>
-            <div className="p-col-12 p-md-6">
-                <ProductList products={products} onAddToCart={addProductToSale} />
+            <div className="p-col-12 p-md-6 mb-5">
+                {/* <ProductList products={products} onAddToCart={addProductToSale} /> */}
+                <Tabla2 lista={products} añadir={addProductToSale} />
             </div>
-            <div className="p-col-12">
+            <div className="p-col-12 mb-5">
                 <SaleDetails details={saleDetails} onUpdateDetail={updateSaleDetail} />
             </div>
-            <div className="p-col-12">
+            <div className="p-col-12 mb-5">
                 <SaleTotals details={saleDetails} />
             </div>
         </div>

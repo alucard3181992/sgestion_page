@@ -1,4 +1,5 @@
 import '@/styles/globals.css'
+import '@/styles/modal.css'
 //import "primereact/resources/themes/arya-blue/theme.css";
 
 import "primeflex/primeflex.css";

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Button } from "primereact/button";
+import { InputText } from "primereact/inputtext";
 
 const AuthWrapper = ({ children, correctPassword }) => {
     const [password, setPassword] = useState("");
@@ -19,14 +21,17 @@ const AuthWrapper = ({ children, correctPassword }) => {
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100vh" }}>
                 <h2>Acceso Restringido</h2>
                 <p>Ingrese la contraseña para acceder a esta página:</p>
-                <input
+                <InputText
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     style={{ padding: "10px", fontSize: "16px", marginBottom: "10px" }}
                 />
-                <button onClick={handlePasswordSubmit} style={{ padding: "10px 20px", fontSize: "16px", cursor: "pointer" }}>Enviar</button>
-                {errorMessage && <p style={{ color: "red", marginTop: "10px" }}>{errorMessage}</p>}
+                <Button
+                    onClick={handlePasswordSubmit}
+                    style={{ padding: "10px 20px", fontSize: "16px", cursor: "pointer" }}
+                    label="Enviar" />
+                {errorMessage && <p className="p-error" style={{ /* color: "red", */ marginTop: "10px" }}>{errorMessage}</p>}
             </div>
         );
     }

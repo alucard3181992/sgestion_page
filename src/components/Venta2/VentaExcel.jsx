@@ -55,10 +55,10 @@ const VentaExcel = () => {
             <div className="col-12">
                 <DataTableExcel rows={viguetas} setRows={setViguetas} />
             </div>
-            <div className="col-12 md:col-6 lg:col-6">
+            <div className="col-12 md:col-12 lg:col-6">
                 <ComplementosAdicionales rows={complementos} setRows={setComplementos} />
             </div>
-            <div className="col-12 md:col-6">
+            <div className="col-12 md:col-12 lg:col-6">
                 <ResumenCotizacion
                     viguetas={viguetas}
                     complementos={complementos}

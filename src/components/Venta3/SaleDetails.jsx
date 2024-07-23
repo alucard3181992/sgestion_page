@@ -26,6 +26,16 @@ const SaleDetails = ({ details, onUpdateDetail }) => {
                             value={rowData.cantidad}
                             onValueChange={(e) => updateQuantity(rowData, e.value)}
                             min={0}
+                            showButtons
+                            /* buttonLayout="horizontal"
+                            decrementButtonClassName="p-button-danger"
+                            incrementButtonClassName="p-button-success"
+                            incrementButtonIcon="pi pi-plus"
+                            decrementButtonIcon="pi pi-minus" */
+                            pt={{
+                                decrementButton: { className: "p-0", style: { borderRadius: 0, borderBottomRightRadius: 4 } },
+                                incrementButton: { className: "p-0", style: { borderRadius: 0, borderTopRightRadius: 4 } }
+                            }}
                         />
                     )}
                 />
@@ -37,6 +47,11 @@ const SaleDetails = ({ details, onUpdateDetail }) => {
                             onValueChange={(e) => updateDiscount(rowData, e.value)}
                             min={0}
                             max={100}
+                            showButtons
+                            pt={{
+                                decrementButton: { className: "p-0 ", style: { borderRadius: 0, borderBottomRightRadius: 4 } },
+                                incrementButton: { className: "p-0 ", style: { borderRadius: 0, borderTopRightRadius: 4 } }
+                            }}
                         />
                     )}
                 />

@@ -34,7 +34,7 @@ const PrincipalContextProvider = (props) => {
     const [count, setCount] = useLocalStorage(0, 'count')
     const [menuBar, setMenuBar] = useLocalStorage('', 'menuBar');
     const [menuBar2, setMenuBar2] = useLocalStorage('', 'opcion');
-    const [tema, setTema] = useLocalStorage('arya-blue', 'tema');
+    const [tema, setTema] = useLocalStorage('lara-dark-teal', 'tema');
     const [datosIn, setDatosIn] = useState(false)
     const [loading, setLoading] = useState(true)
     const [acceso, setAcceso] = useState(false)
