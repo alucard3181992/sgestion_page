@@ -188,6 +188,13 @@ export const items = [
         href: "/Backup/GBackup",
     },
     {
+        label: 'Productos',
+        icon: 'pi pi-fw pi-calendar-plus',
+        url: "/Productos/GProductos",
+        link: "si",
+        href: "/Productos/GProductos",
+    },
+    {
         label: 'Ingresar al Sistema',
         icon: 'pi pi-fw pi-plus',
         link: "si",

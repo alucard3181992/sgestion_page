@@ -171,7 +171,7 @@ export default function TablaPrincipal({ lista, datos, columnas, columnasExpasio
                 onClick={(e) => {
                     e.preventDefault()
                     generarHandler()
-                    dialog(true)
+                    //dialog(true)
                 }}
 
             />
