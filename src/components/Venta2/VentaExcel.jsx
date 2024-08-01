@@ -6,6 +6,8 @@ import VistaUsuarioExcel from "./Usuario";
 import DataTableExcel from "./Tabla";
 import ComplementosAdicionales from "./Complementos";
 import ResumenCotizacion from "./Resumen";
+import PdfVenta2 from "./PdfVenta2";
+import { Button } from "primereact/button";
 
 const VentaExcel = () => {
     const clienteVacio = {
@@ -30,6 +32,7 @@ const VentaExcel = () => {
 
     const [totalesDes, setTotalesDes] = useState([])
     const [descuento, setDescuento] = useState(0)
+    const [visible, setVisible] = useState(false)
 
     const [cliente, setCliente] = useState(clienteVacio)
 
@@ -72,6 +75,21 @@ const VentaExcel = () => {
                     Total Cotizacion: {totalCotizacion} bs
                 </div>
             </div>
+            <Button label="abrir pdf" onClick={(e) => {
+                e.preventDefault()
+                setVisible(true)
+            }} />
+            {visible && <PdfVenta2
+                cliente={cliente}
+                descuento={`${descuento} bs`}
+                lista={totalesDes}
+                listaViguetas={viguetas}
+                listacomplemento={complementos}
+                stotal={0}
+                total={`${totalCotizacion} bs`}
+                visible={visible}
+                setVisible={setVisible}
+            />}
         </div>
 
     </React.Fragment>)
