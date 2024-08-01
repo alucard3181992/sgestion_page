@@ -1,8 +1,8 @@
 import React from 'react';
-import { PDFViewer, Document, Page, Text, View, StyleSheet, Font, Image } from '@react-pdf/renderer';
+import { PDFViewer, Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
 //import styles from '@/recursos/js/Styles';
 const ProformaPDF = ({ cliente, fecha, encargado, productos, complementos, precioTotal }) => {
-    Font.register({ family: 'Roboto', src: `/icons/ariblk.ttf` })
+    
     const altura = productos.length === 1 ? false : `${productos.length - 1}0`
     const styles = StyleSheet.create({
         page: {
@@ -142,7 +142,7 @@ const ProformaPDF = ({ cliente, fecha, encargado, productos, complementos, preci
             <Document>
                 <Page size="A4" style={styles.page}>
                     <View style={{ ...styles.section, marginTop: 50 }}>
-                        <Text style={{ ...styles.heading, fontFamily: 'Roboto' }} >PRESUPUESTO DE LOSA PRETENSADA</Text>
+                        <Text style={{ ...styles.heading }} >PRESUPUESTO DE LOSA PRETENSADA</Text>
                         <Text style={styles.text}>FECHA: {fecha}</Text>
                         <Text style={styles.text}>CLIENTE: {cliente.nombre}</Text>
                         <Text style={styles.text}>DIRECCION: {cliente.direccion}</Text>
@@ -183,11 +183,11 @@ const ProformaPDF = ({ cliente, fecha, encargado, productos, complementos, preci
                     <View style={styles.section}>
                         <View style={styles.table}>
                             <View style={styles.tableRow}>
-                                <View style={{ ...styles.tableCol, width: '30%', padding: 1, backgroundColor: '#800000', color: 'white', }}><Text style={{ ...styles.tableCell, fontWeight: 'bold', fontSize: 10, fontFamily: 'Roboto' }}>Producto</Text></View>
-                                <View style={{ ...styles.tableCol, width: '20%', padding: 1, backgroundColor: '#800000', color: 'white', }}><Text style={{ ...styles.tableCell, fontWeight: 'bold', fontSize: 10, fontFamily: 'Roboto' }}>Pzas.</Text></View>
-                                <View style={{ ...styles.tableCol, width: '20%', padding: 1, backgroundColor: '#800000', color: 'white', }}><Text style={{ ...styles.tableCell, fontWeight: 'bold', fontSize: 10, fontFamily: 'Roboto' }}>M.L.</Text></View>
-                                <View style={{ ...styles.tableCol, width: '15%', padding: 1, backgroundColor: '#800000', color: 'white', }}><Text style={{ ...styles.tableCell, fontWeight: 'bold', fontSize: 10, fontFamily: 'Roboto' }}>Área / m2</Text></View>
-                                <View style={{ ...styles.tableCol, width: '15%', padding: 1, backgroundColor: '#800000', color: 'white', }}><Text style={{ ...styles.tableCell, fontWeight: 'bold', fontSize: 10, fontFamily: 'Roboto' }}>Precio</Text></View>
+                                <View style={{ ...styles.tableCol, width: '30%', padding: 1, backgroundColor: '#800000', color: 'white', }}><Text style={{ ...styles.tableCell, fontWeight: 'bold', fontSize: 10 }}>Producto</Text></View>
+                                <View style={{ ...styles.tableCol, width: '20%', padding: 1, backgroundColor: '#800000', color: 'white', }}><Text style={{ ...styles.tableCell, fontWeight: 'bold', fontSize: 10 }}>Pzas.</Text></View>
+                                <View style={{ ...styles.tableCol, width: '20%', padding: 1, backgroundColor: '#800000', color: 'white', }}><Text style={{ ...styles.tableCell, fontWeight: 'bold', fontSize: 10 }}>M.L.</Text></View>
+                                <View style={{ ...styles.tableCol, width: '15%', padding: 1, backgroundColor: '#800000', color: 'white', }}><Text style={{ ...styles.tableCell, fontWeight: 'bold', fontSize: 10 }}>Área / m2</Text></View>
+                                <View style={{ ...styles.tableCol, width: '15%', padding: 1, backgroundColor: '#800000', color: 'white', }}><Text style={{ ...styles.tableCell, fontWeight: 'bold', fontSize: 10 }}>Precio</Text></View>
                             </View>
 
                             <View style={styles.tableRow}>
@@ -222,7 +222,7 @@ const ProformaPDF = ({ cliente, fecha, encargado, productos, complementos, preci
                     <View style={{ ...styles.section, margin: 0 }}>
                         <View style={styles.table}>
                             <View style={styles.tableRow}>
-                                <View style={{ ...styles.tableCol3, backgroundColor: '#800000', color: 'white' }}><Text style={{ ...styles.text, fontWeight: 'bold', fontSize: 12, fontFamily: 'Roboto' }}>Rendimiento de materiales para losa (No incluidos en presupuesto)</Text></View>
+                                <View style={{ ...styles.tableCol3, backgroundColor: '#800000', color: 'white' }}><Text style={{ ...styles.text, fontWeight: 'bold', fontSize: 12 }}>Rendimiento de materiales para losa (No incluidos en presupuesto)</Text></View>
                             </View>
                             <View style={styles.tableRow}>
                                 <View style={styles.tableCol2}><Text style={styles.text}>Cemento: 94 Bolsas</Text></View>
@@ -245,9 +245,9 @@ const ProformaPDF = ({ cliente, fecha, encargado, productos, complementos, preci
                     </View>
 
                     <View style={{ ...styles.section, margin: 0, marginTop: 20, textAlign: 'center' }}>
-                        <Text style={{ ...styles.text, fontFamily: 'Roboto', fontSize: 13 }}>Tec. Cristian Jhonatan Rodriguez Miranda</Text>
-                        <Text style={{ ...styles.text, fontFamily: 'Roboto', color: '#800000' }}>EJECUTIVO DE VENTAS</Text>
-                        <Text style={{ ...styles.text, fontFamily: 'Roboto', color: '#800000' }}>CELULAR: 61879391</Text>
+                        <Text style={{ ...styles.text, fontSize: 13 }}>Tec. Cristian Jhonatan Rodriguez Miranda</Text>
+                        <Text style={{ ...styles.text, color: '#800000' }}>EJECUTIVO DE VENTAS</Text>
+                        <Text style={{ ...styles.text, color: '#800000' }}>CELULAR: 61879391</Text>
                     </View>
                     <Image style={styles.Img0} src={'/icons/h/4.png'} fixed />
                     <Image style={styles.Img1} src={'/icons/h/1.png'} fixed />
