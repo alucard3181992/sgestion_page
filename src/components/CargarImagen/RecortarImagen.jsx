@@ -4,16 +4,12 @@ import { FileUpload } from 'primereact/fileupload';
 import { Button } from 'primereact/button';
 import { Tag } from 'primereact/tag';
 import { ProgressBar } from 'primereact/progressbar';
-import { Image } from 'primereact/image';
-import { Slider } from "primereact/slider";
-import { InputText } from "primereact/inputtext";
 import { BlockUI } from 'primereact/blockui';
-import { InputSwitch } from "primereact/inputswitch";
-import { TriStateCheckbox } from 'primereact/tristatecheckbox';
 import { ToggleButton } from 'primereact/togglebutton';
-
+import Image from 'next/image';
 import ReactCrop from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
+import MenubarTerminado from '../Componentes/MenuBar';
 
 export default function RecortarImagen() {
     const [src, setSrc] = useState(null);
@@ -156,7 +152,7 @@ export default function RecortarImagen() {
                                 className='w-full'
                             >
                                 <div className='ContenedorImg border-round'>
-                                    <img src={src} ref={imgRef} style={{ height: "300px", width: "100%" }} />
+                                    <Image src={src} ref={imgRef} width={0} height={0} style={{ height: "300px", width: "100%" }} />
                                     <div className='IzquierdaArriba'>
                                         <span className="text-500 font-medium mb-3 IzquierdaArriba">Original</span>
                                     </div>
@@ -170,7 +166,7 @@ export default function RecortarImagen() {
                     <div className="col-12 md:col-12 lg:col-6 centro-total">
                         {output &&
                             <div className='ContenedorImg centro-total h-full' style={{ background: "#12121294" }}>
-                                <img src={output} /* style={{ height: "300px", width: "100%" }} */ />
+                                <Image height={0} width={0} src={output} style={{ height: "300px", width: "100%" }} />
                                 <div className='IzquierdaArriba'>
                                     <span className="text-500 font-medium mb-3 IzquierdaArriba">Modificada</span>
                                 </div>
@@ -225,6 +221,7 @@ export default function RecortarImagen() {
 
     return (
         <div className="App">
+            <MenubarTerminado />
             <FileUpload
                 name="invoice"
                 accept="image/*"

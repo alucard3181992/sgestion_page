@@ -1,8 +1,8 @@
 import React from 'react';
-import { PDFViewer, Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
+import { PDFViewer, Document, Page, Text, View, StyleSheet, Image, Font } from '@react-pdf/renderer';
 //import styles from '@/recursos/js/Styles';
 const ProformaPDF = ({ cliente, fecha, encargado, productos, complementos, precioTotal }) => {
-    
+    Font.register({ family: 'Roboto', src: "/icons/h/ariblk.ttf" });
     const altura = productos.length === 1 ? false : `${productos.length - 1}0`
     const styles = StyleSheet.create({
         page: {
@@ -16,6 +16,7 @@ const ProformaPDF = ({ cliente, fecha, encargado, productos, complementos, preci
             marginBottom: 10,
             fontWeight: 'bold',
             textAlign: 'center',
+            fontFamily: 'Roboto'
         },
         heading2: {
             fontSize: 12,
@@ -154,7 +155,7 @@ const ProformaPDF = ({ cliente, fecha, encargado, productos, complementos, preci
                         <Text style={styles.text}>Sr. Cliente:</Text>
                         <Text style={styles.text}>
                             Nos es grato hacerle llegar a Ud. la cotización correspondiente de viguetas pretensadas y complemento alivianante HORMI-TEC.
-                            Nuestra vigueta de hormigón pretensado, con sección de "T" invertida, posee características de SUPER TRABA en el coronamiento
+                            Nuestra vigueta de hormigón pretensado, con sección de {`"T"`} invertida, posee características de SUPER TRABA en el coronamiento
                             de la vigueta que incrementan considerablemente la adherencia mecánica entre la vigueta y la losa hormigonada en sitio,
                             evitando el deslizamiento entre ambos para la absorción de esfuerzos rasantes.
                         </Text>
@@ -233,8 +234,8 @@ const ProformaPDF = ({ cliente, fecha, encargado, productos, complementos, preci
                                 <View style={styles.tableCol2}><Text style={styles.text}>Agua: 655 lt</Text></View>
                             </View>
                             <View style={styles.tableRow}>
-                                <View style={styles.tableCol2}><Text style={styles.text}>Solera 2" x 4": 14 m</Text></View>
-                                <View style={styles.tableCol2}><Text style={styles.text}>Puntales f  3": 18 Pzas.</Text></View>
+                                <View style={styles.tableCol2}><Text style={styles.text}>{`Solera 2" x 4": 14 m`}</Text></View>
+                                <View style={styles.tableCol2}><Text style={styles.text}>{`Puntales f  3": 18 Pzas.`}</Text></View>
                             </View>
                             <View style={styles.tableRow}>
                                 <View style={styles.tableCol2}><Text style={styles.text}>Fierro de 6 mm: 91 Barras</Text></View>
@@ -249,10 +250,10 @@ const ProformaPDF = ({ cliente, fecha, encargado, productos, complementos, preci
                         <Text style={{ ...styles.text, color: '#800000' }}>EJECUTIVO DE VENTAS</Text>
                         <Text style={{ ...styles.text, color: '#800000' }}>CELULAR: 61879391</Text>
                     </View>
-                    <Image style={styles.Img0} src={'/icons/h/4.png'} fixed />
-                    <Image style={styles.Img1} src={'/icons/h/1.png'} fixed />
-                    <Image style={styles.Img2} src={'/icons/h/2.png'} fixed />
-                    <Image style={styles.Img3} src={'/icons/h/3.png'} fixed />
+                    <Image style={styles.Img0} alt={"Cargando Imagen...."} src={'/icons/h/4.png'} fixed />
+                    <Image style={styles.Img1} alt={"Cargando Imagen...."} src={'/icons/h/1.png'} fixed />
+                    <Image style={styles.Img2} alt={"Cargando Imagen...."} src={'/icons/h/2.png'} fixed />
+                    <Image style={styles.Img3} alt={"Cargando Imagen...."} src={'/icons/h/3.png'} fixed />
 
                 </Page>
             </Document>

@@ -12,7 +12,7 @@ export default function Skills() {
       <div className="grid p-5" >
         <div className="col-12 md:col-6 p-0">
           <div style={{ width: "100%", height: "100%" }}>
-            <Image src="/icons/img/5.jpg" className="ImgnormalInicioCard"
+            <Image alt="Cargando Imagen..." src="/icons/img/5.jpg" className="ImgnormalInicioCard"
               /* style={{ width: "100%", height: "100%" }}  *//>
           </div>
         </div>

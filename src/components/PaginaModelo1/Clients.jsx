@@ -11,7 +11,7 @@ export default function Clients() {
         return (
             <div className="text-center">
                 <div className="mb-3 centro-total">
-                    <Image src={`${product.image}`} className="ImgnormalInicioRedondoCarusel" />
+                    <Image alt="Cargando Imagen..." src={`${product.image}`} className="ImgnormalInicioRedondoCarusel" />
                 </div>
                 <div className="mb-3">
                     {product.description}

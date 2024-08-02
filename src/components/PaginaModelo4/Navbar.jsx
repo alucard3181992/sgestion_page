@@ -1,13 +1,14 @@
 import React from "react";
 import Link from 'next/link';
 import { items } from "../PaginasExterior/data";
+import { Image } from "primereact/image";
 const Navbar = () => {
 
     return (<React.Fragment>
         <nav style={{ display: 'flex', background: "white", alignItems: 'center', justifyContent: 'space-between', padding: '10px' }}>
             <div>
                 {/* Logo */}
-                <img src="tu-logo.png" alt="Logo" style={{ maxWidth: '100px' }} />
+                <Image src="tu-logo.png" alt="Logo" style={{ maxWidth: '100px' }} />
             </div>
             <div style={{ display: 'flex' }}>
                 {/* Menús horizontales */}

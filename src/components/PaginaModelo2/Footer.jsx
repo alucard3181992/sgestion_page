@@ -9,7 +9,7 @@ export default function Footer() {
             <div className="grid p-2">
                 <div className="col-6 md:col-3 lg:col-3 centro-total">
                     <div style={{ width: 150 }}>
-                        <Image src="/icons/img/mundo.png" className="ImgnormalInicio" />
+                        <Image alt="Cargando Imagen..." src="/icons/img/mundo.png" className="ImgnormalInicio" />
                     </div>
                 </div>
                 <div className="col-6 md:col-3 lg:col-3 centro-total" >

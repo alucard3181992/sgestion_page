@@ -79,12 +79,12 @@ const SimplePdf = ({ Datos, titulo, subTitulo, verQR, verLogo, SegundaPagina, da
                 size="LETTER"
                 style={styles.body}
             >
-                <Image style={styles.etiqueta} source={"/icons/etiqueta.png"} fixed />
+                <Image style={styles.etiqueta} alt="Cargando Imagen..." source={"/icons/etiqueta.png"} fixed />
                 {/* <Text style={styles.encabezado} fixed>
                     ~ Creado con react-pdf ~
                 </Text> */}
-                {verQR.ver ? <Image key={"Mapa"} style={[styles.ImgQr]} src={QRaBASE64(verQR.datos)} /> : ""}
-                {verLogo.ver && <Image key={"Mapa2"} style={[styles.ImgLogo]} src={verLogo.ruta} />}
+                {verQR.ver ? <Image key={"Mapa"} alt="Cargando Imagen..." style={[styles.ImgQr]} src={QRaBASE64(verQR.datos)} /> : ""}
+                {verLogo.ver && <Image key={"Mapa2"} alt="Cargando Imagen..." style={[styles.ImgLogo]} src={verLogo.ruta} />}
                 <Text style={{ marginTop: verQR.ver ? 30 : verLogo.ver ? 30 : 10, ...styles.titulo }}>
                     {titulo}
                 </Text>

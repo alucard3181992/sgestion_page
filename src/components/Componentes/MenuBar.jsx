@@ -17,7 +17,7 @@ export default function MenubarTerminado() {
     )
     const itemRenderer2 = (item) => (
         <Link href={'/'} className='especial'>
-            <Image width='150' height='50' src='/icons/img/logo.png'></Image>
+            <Image width='150' alt='Cargando Imagen' height='50' src='/icons/img/logo.png'></Image>
         </Link>
     )
 
@@ -97,11 +97,11 @@ export default function MenubarTerminado() {
 
     items.splice(middleIndex, 0, especialItem);
 
-    const start = <img alt="logo" src="https://primefaces.org/cdn/primereact/images/logo.png" height="40" className="mr-2"></img>;
+    const start = <Image alt='Cargando Imagen' height='40' src="https://primefaces.org/cdn/primereact/images/logo.png" className="mr-2"></Image>;
     const end = (
         <div className="logoEspecial">
             <Link href={'/'} >
-                <Image width='150' height='50' src='/icons/img/logo.png'></Image>
+                <Image width='150' height='50' alt="Cargando Imagen..." src='/icons/img/logo.png'></Image>
             </Link>
         </div>
     )

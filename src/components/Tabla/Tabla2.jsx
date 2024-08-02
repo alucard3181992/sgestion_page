@@ -212,6 +212,7 @@ export default function Tabla2({ lista, añadir }) {
 
     return (
         <div className="card">
+            soy tabla2
             {layout === "table" ?
                 <ProductList onAddToCart={añadir} products={lista} p={p} />
                 :

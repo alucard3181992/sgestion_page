@@ -49,7 +49,7 @@ export default function Skills() {
             key={index} style={{ cursor: "pointer" }}>
             <div className="fondob" /* style={{ height:"100%",minHeight: "300px", maxWidth: "300px" }} */>
               <div className="img-seccion2">
-                <Image src={project.image} className="ImgnormalInicio" />
+                <Image alt="Cargando Imagen..." src={project.image} className="ImgnormalInicio" />
               </div>
               <div className="p-5">
 

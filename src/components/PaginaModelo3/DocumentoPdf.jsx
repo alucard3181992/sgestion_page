@@ -45,8 +45,8 @@ export default function DocumentoPdf({ imagen1, imagen2 }) {
         for (let i = 0; i < copias; i++) {
             elements.push(
                 <View key={i} style={displayImg()}>
-                    <Image style={[styles.row1, styles.tableCellImg]} src={imagen1} />
-                    <Image style={[styles.row1, styles.tableCellImg]} src={imagen2} />
+                    <Image alt="Cargando Imagen..." style={[styles.row1, styles.tableCellImg]} src={imagen1} />
+                    <Image alt="Cargando Imagen..." style={[styles.row1, styles.tableCellImg]} src={imagen2} />
                 </View>
             );
         }
