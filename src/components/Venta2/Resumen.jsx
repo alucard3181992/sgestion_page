@@ -11,24 +11,37 @@ const ResumenCotizacion = ({ viguetas, complementos, setTotalesDes, descuento, s
     });
 
     const [rows, setRows] = useState([]);
-    
+
 
     const calcularTotalViguetas = () => {
         return viguetas
             .filter(item => item.bs && !isNaN(parseFloat(item.bs)))
             .reduce((total, item) => total + parseFloat(item.bs), 0);
+    }
+    
+    const calculateTotalsV = () => {
+        const totals = viguetas.reduce((acc, row) => {
+            acc.nroPzas += parseInt(row.nroPzas) || 0;
+            acc.mlViguetas += parseFloat(row.mlViguetas) || 0;
+            acc.bs += parseFloat(row.bs) || 0;
+            return acc;
+        }, { nroPzas: 0, mlViguetas: 0, bs: 0 });
+
+        return totals;
     };
 
     useEffect(() => {
         const rowsData = [];
 
         const totalViguetas = calcularTotalViguetas();
-
+        const totalPzas = calculateTotalsV()
         if (totalViguetas > 0) {
             rowsData.push({
                 producto: 'Viguetas',
                 precioTotal: totalViguetas,
                 descuento: discounts.viguetas,
+                pzas: totalPzas.nroPzas,
+                ml: totalPzas.mlViguetas,
                 precioFinal: calcularPrecioFinal(totalViguetas, discounts.viguetas),
             });
         }
@@ -47,7 +60,6 @@ const ResumenCotizacion = ({ viguetas, complementos, setTotalesDes, descuento, s
             }
             return acc;
         }, {});
-
         Object.keys(complementoGroups).forEach((key) => {
             const item = complementoGroups[key];
             const descuento = discounts.complementos[key] || 0;
@@ -55,10 +67,11 @@ const ResumenCotizacion = ({ viguetas, complementos, setTotalesDes, descuento, s
                 producto: key,
                 precioTotal: parseFloat(item.precioTotal),
                 descuento,
+                pzas: item.cantidad,
+                ml: 0,
                 precioFinal: calcularPrecioFinal(item.precioTotal, descuento),
             });
         });
-
         setRows(rowsData)
         setTotalesDes(rowsData)
     }, [viguetas, complementos, discounts]);

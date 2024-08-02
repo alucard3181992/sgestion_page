@@ -137,7 +137,7 @@ const ProformaPDF = ({ cliente, fecha, encargado, productos, complementos, preci
       } */
     const MTL = productos[0].ml
     const Area = productos[0].area
-    const Total = productos.reduce((acc, product) => acc + parseFloat(product.precio), 0);
+    const Total = productos.reduce((acc, product) => acc + parseFloat(product.precioTotal), 0);
     return (
         <PDFViewer width="100%" height="800">
             <Document>

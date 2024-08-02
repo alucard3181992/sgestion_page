@@ -72,7 +72,7 @@ const VentaExcel = () => {
             </div>
             <div className="col-12">
                 <div className="font-bolb text-3xl p-4 border-round shadow-2 surface-card text-right">
-                    Total Cotizacion: {totalCotizacion} bs
+                    Total Cotizacion: {totalCotizacion.toFixed(2)} bs
                 </div>
             </div>
             <Button label="abrir pdf" onClick={(e) => {
