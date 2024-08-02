@@ -2,6 +2,7 @@ import React from "react";
 import SimplePdf from "../Componentes/SImplePDF";
 import { Dialog } from "primereact/dialog";
 import ProformaPDF from "./Proforma";
+import { Validacion } from "@/recursos/js/Validacion";
 
 const PdfVenta2 = ({ visible,
     setVisible,
@@ -24,11 +25,13 @@ const PdfVenta2 = ({ visible,
         nombre: item.producto,
         pzas: item.pzas,
         ml: item.ml,
-        area: 163.77,
+        area: item.area,
         precioTotal: item.precioTotal,
         precio: item.precioFinal
         //prev: item.prev,
     }))
+
+
     /**proforma */
 
 
@@ -64,16 +67,12 @@ const PdfVenta2 = ({ visible,
         ver: false,
         ruta: "/icons/img/report.png"
     }; */
-    const cliente2 = {
-        nombre: "Sr Omar",
-        direccion: "B/ Los Chapacos"
-    };
     const clienteOf = {
         ...cliente,
         nombre: cliente.cliente
     }
 
-    const fecha = "16 de julio de 2024";
+    const fecha = Validacion.formatoLiteral(Date.now());
     const encargado = "Tec. Cristian Jhonatan Rodriguez Miranda";
     /* 
         const productos = [
@@ -85,7 +84,6 @@ const PdfVenta2 = ({ visible,
      */
 
     const precioTotal = 10140.00;
-
     return (<React.Fragment>
         <Dialog
             visible={visible}
@@ -106,13 +104,13 @@ const PdfVenta2 = ({ visible,
                 }}
                 tema={"azul"}
             /> */}
-            <ProformaPDF
+            {listaPro.length ? <ProformaPDF
                 cliente={clienteOf}
                 fecha={fecha}
                 encargado={encargado}
                 productos={listaPro}
                 complementos={listacomplemento}
-                precioTotal={parseFloat(total)} />
+                precioTotal={parseFloat(total)} /> : "SIN DATOS PARA LA VISTA"}
 
         </Dialog>
     </React.Fragment>)

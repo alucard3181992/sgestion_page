@@ -92,7 +92,18 @@ const ComplementosAdicionales = ({ rows, setRows }) => {
                 )} />
                 <Column field="precio" header="Precio" />
                 <Column field="cantidad" header="Cantidad" body={(rowData, options) => (
-                    <InputNumber value={rowData.cantidad} onValueChange={(e) => handleCantidadChange(e, options.rowIndex)} min={0} />
+                    <InputNumber
+                        value={rowData.cantidad}
+                        onValueChange={(e) => handleCantidadChange(e, options.rowIndex)}
+                        min={0}
+                        showButtons
+                        pt={{
+                            decrementButton: { className: "p-0", style: { borderRadius: 0, borderBottomRightRadius: 4 } },
+                            incrementButton: { className: "p-0", style: { borderRadius: 0, borderTopRightRadius: 4 } },
+                            input:{ root:{ 
+                                className:"w-4"
+                            }}
+                        }} />
                 )} footer={totals.cantidad} />
                 <Column field="precioTotal" header="Precio Total" footer={totals.precioTotal.toFixed(2)} />
             </DataTable>

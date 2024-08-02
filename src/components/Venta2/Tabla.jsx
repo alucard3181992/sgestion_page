@@ -29,9 +29,11 @@ const DataTableExcel = ({ rows, setRows }) => {
                 if (producto) {
                     const mlViguetas = (longitud * nroPzas).toFixed(2);
                     const bs = (mlViguetas * producto.precio).toFixed(2);
+                    const area = (longitud * ((nroPzas / 2) + 0.406))
                     newRows[index].mlViguetas = mlViguetas;
                     newRows[index].serie = producto.serie;
                     newRows[index].bs = bs;
+                    newRows[index].area = area.toFixed(2);
                 }
             }
         }
@@ -48,8 +50,9 @@ const DataTableExcel = ({ rows, setRows }) => {
             acc.nroPzas += parseInt(row.nroPzas) || 0;
             acc.mlViguetas += parseFloat(row.mlViguetas) || 0;
             acc.bs += parseFloat(row.bs) || 0;
+            acc.area += parseFloat(row.area) || 0;
             return acc;
-        }, { nroPzas: 0, mlViguetas: 0, bs: 0 });
+        }, { nroPzas: 0, mlViguetas: 0, bs: 0, area: 0 });
 
         return totals;
     };
@@ -75,6 +78,7 @@ const DataTableExcel = ({ rows, setRows }) => {
                 <Column header="Nº" body={(data, options) => options.rowIndex + 1} frozen />
                 <Column field="longitud" header="Longitud" editor={inputTextEditor} footer={"TOTALES: "} />
                 <Column field="nroPzas" header="Nro. Pzas" editor={inputTextEditor} footer={totals.nroPzas} />
+                <Column field="area" header="Area" footer={totals.area.toFixed(2)} />
                 <Column field="mlViguetas" header="Ml. Viguetas" footer={totals.mlViguetas.toFixed(2)} />
                 <Column field="serie" header="Serie" />
                 <Column field="bs" header="Bs." footer={totals.bs.toFixed(2)} />

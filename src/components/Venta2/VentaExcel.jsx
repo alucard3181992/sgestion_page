@@ -22,7 +22,7 @@ const VentaExcel = () => {
         CARGO: "EJECUTIVO DE VENTAS"
 
     }
-    const initialViguetas = Array.from({ length: 5 }, () => ({ longitud: '', nroPzas: '', mlViguetas: '', serie: '', bs: '' }));
+    const initialViguetas = Array.from({ length: 5 }, () => ({ longitud: '', nroPzas: '', area: '', mlViguetas: '', serie: '', bs: '' }));
     const [viguetas, setViguetas] = useState(initialViguetas); // Estado para las filas de viguetas
 
     const initialComplementos = [
@@ -75,10 +75,14 @@ const VentaExcel = () => {
                     Total Cotizacion: {totalCotizacion.toFixed(2)} bs
                 </div>
             </div>
-            <Button label="abrir pdf" onClick={(e) => {
-                e.preventDefault()
-                setVisible(true)
-            }} />
+            <div className="col-12 card centro-total">
+                <Button label="Generar Cotizacion" onClick={(e) => {
+                    e.preventDefault()
+                    setVisible(true)
+                }}
+                    icon="pi pi-file"
+                />
+            </div>
             {visible && <PdfVenta2
                 cliente={cliente}
                 descuento={`${descuento} bs`}
