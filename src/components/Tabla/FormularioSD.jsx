@@ -1,7 +1,7 @@
 import React from 'react';
 import { InputText } from 'primereact/inputtext';
 
-const FormularioSD = ({ cliente, setCliente, buscar = false, lista = [], elemento = "", clienteVacio }) => {
+const FormularioSD = ({ cliente, setCliente, buscar = false, lista = [], elemento = "", clienteVacio, disabled = false }) => {
     const handleInputChange = (e, key) => {
         setCliente(prevState => ({
             ...prevState,
@@ -23,9 +23,9 @@ const FormularioSD = ({ cliente, setCliente, buscar = false, lista = [], element
             }
         }
     };
-
+    const dat = disabled ? " intocable " : ""
     return (
-        <div className="p-4 border-round shadow-2 surface-card h-full">
+        <div className={"p-4 border-round shadow-2 surface-card h-full " + dat}>
             {Object.keys(cliente).map((key, index) => (
                 <div key={index} className="p-field mb-4">
                     <span className="p-float-label p-input-icon-right w-full">
@@ -34,6 +34,7 @@ const FormularioSD = ({ cliente, setCliente, buscar = false, lista = [], element
                             value={cliente[key]}
                             onChange={(e) => handleInputChange(e, key)}
                             className={buscar && key === elemento ? 'p-inputtext-icon w-full' : 'w-full'}
+                        //disabled={disabled}
                         />
                         <label htmlFor={key}>{key}</label>
                         {buscar && key === elemento && (

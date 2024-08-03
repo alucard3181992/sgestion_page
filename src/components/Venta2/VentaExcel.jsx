@@ -15,13 +15,12 @@ const VentaExcel = () => {
         direccion: "",
         "Cel/Telf": ""
     }
-    const usuario = {
+    const [usuario, setUsuario] = useState({
         "FECHA": new Date().toLocaleDateString(),
         "EJECUTIVO COMERCIAL": "Tec. Cristian Jhonatan Rodriguez Miranda",
         "Cel. / Telf.": "61879391",
         CARGO: "EJECUTIVO DE VENTAS"
-
-    }
+    })
     const initialViguetas = Array.from({ length: 5 }, () => ({ longitud: '', nroPzas: '', area: '', mlViguetas: '', serie: '', bs: '' }));
     const [viguetas, setViguetas] = useState(initialViguetas); // Estado para las filas de viguetas
 
@@ -53,7 +52,7 @@ const VentaExcel = () => {
                     clienteVacio={clienteVacio} />
             </div>
             <div className="col-12 md:col-6">
-                <VistaUsuarioExcel usuario={usuario} setUsuario={setCliente} />
+                <VistaUsuarioExcel usuario={usuario} setUsuario={setUsuario} />
             </div>
             <div className="col-12">
                 <DataTableExcel rows={viguetas} setRows={setViguetas} />

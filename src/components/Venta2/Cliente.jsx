@@ -16,7 +16,7 @@ const VistaClienteExcel = ({ cliente, setCliente, clienteVacio }) => {
             setCliente={setCliente}
             buscar={true}
             lista={listaClientes}
-            elemento="Cel/Telf"
+            elemento="cliente"
             clienteVacio={clienteVacio}
         />
     </React.Fragment>)
