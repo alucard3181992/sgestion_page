@@ -36,6 +36,7 @@ export async function middleware(request) {
                 || "/Cliente/GCliente" === request.nextUrl.pathname
                 || "/Backup/GBackup" === request.nextUrl.pathname
                 || "/IngresoSistema/Ingreso" === request.nextUrl.pathname
+                || "/Votantes/GVotantes" === request.nextUrl.pathname
                 || "/Productos/GProductos" === request.nextUrl.pathname) {
                 return NextResponse.next()
             } else {
@@ -48,7 +49,7 @@ export async function middleware(request) {
 }
 
 /* import { NextResponse } from "next/server";
-
+/Votantes/GVotantes
 export function middleware() {
     // retrieve the current response
     const res = NextResponse.next()

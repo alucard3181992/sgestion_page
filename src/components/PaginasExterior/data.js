@@ -195,6 +195,13 @@ export const items = [
         href: "/Productos/GProductos",
     },
     {
+        label: 'Votantes',
+        icon: 'pi pi-fw pi-calendar-plus',
+        url: "/Votantes/GVotantes",
+        link: "si",
+        href: "/Votantes/GVotantes",
+    },
+    {
         label: 'Ingresar al Sistema',
         icon: 'pi pi-fw pi-plus',
         link: "si",
