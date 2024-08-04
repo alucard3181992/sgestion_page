@@ -64,6 +64,7 @@ import { PDFDownloadLink } from '@react-pdf/renderer';
 import VoterPDF, { VerPdfVotante } from './PDF';
 
 const VoterTable = ({ voters }) => {
+    console.log(voters);
     const renderCategories = (rowData) => {
         const activeCategories = Object.entries(rowData.categories).filter(([, value]) => value.enabled);
         return activeCategories.map(([key, value]) => (
@@ -103,15 +104,18 @@ const VoterTable = ({ voters }) => {
                 rows={5}
                 paginator
                 rowsPerPageOptions={[5, 10, 15]}
-                header={<center>REGISTRO DE VOTANTES</center>}
+                header={
+                    <center>REGISTRO DE VOTANTES</center>
+                }
             >
                 <Column field="id" header="N" />
                 <Column field="ci" header="CI" />
                 <Column field="nombre" header="Votante" />
-                <Column body={renderCategories} header="Categorías y Respaldos" />
+                <Column field="cel" header="Celular" />
+                {/* <Column body={renderCategories} header="Categorías y Respaldos" /> */}
                 <Column body={printButtonTemplate} header="Imprimir" />
                 <Column body={verButtonTemplate} header="Ver" />
-            </DataTable>
+            </DataTable >
             {documento && (
                 <VerPdfVotante
                     voter={dataNueva}
@@ -119,7 +123,7 @@ const VoterTable = ({ voters }) => {
                     setDocumento={setDocumento}
                 />
             )}
-        </div>
+        </div >
     );
 };
 

@@ -106,9 +106,9 @@ const Vista = ({ Component, pageProps }) => {
                             </div>
                         </>
                     ) : (<>
-                        
-                            <Component  {...pageProps} />
-                       
+
+                        <Component  {...pageProps} />
+
                     </>)}
                 </>
             )

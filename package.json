@@ -34,7 +34,8 @@
     "react-image-crop": "^10.1.8",
     "react-leaflet": "^4.2.1",
     "sobel": "^0.0.11",
-    "tesseract.js": "^5.0.5"
+    "tesseract.js": "^5.0.5",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.16",

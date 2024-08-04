@@ -2,218 +2,116 @@ import React, { useState } from 'react';
 import { PDFViewer, PDFDownloadLink, Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 import { Dialog } from 'primereact/dialog';
 
-/* const styles = StyleSheet.create({
-    page: {
-        padding: 30,
-    },
-    title: {
-        fontSize: 20,
-        marginBottom: 20,
-        textAlign: 'center',
-    },
-    section: {
-        marginBottom: 10,
-    },
-    table: {
-        width: '100%',
-        borderWidth: 1,
-        borderColor: '#000',
-        borderStyle: 'solid',
-    },
-    tableRow: {
-        flexDirection: 'row',
-        borderBottomWidth: 1,
-        borderBottomColor: '#000',
-        borderBottomStyle: 'solid',
-    },
-    tableCell: {
-        flex: 1,
-        textAlign: 'center'
-    },
-    header: {
-        backgroundColor: '#f0f0f0',
-        fontWeight: 'bold',
-    },
-}); */
 const styles = StyleSheet.create({
-    title: {
-        fontSize: 20,
-        textAlign: 'center',
-        textDecoration:'underline'
-    },
     page: {
+        flexDirection: 'column',
+        backgroundColor: '#ffffff',
         padding: 30,
     },
+    title: {
+        fontSize: 12,
+        textAlign: 'center',
+        margin: 3
+    },
     section: {
-        margin: 2,
-    },
-    heading: {
-        fontSize: 18,
-        marginBottom: 10,
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
-    heading2: {
-        fontSize: 12,
-        marginBottom: 10,
-        fontWeight: 'bold',
-        textAlign: 'right',
-    },
-    heading3: {
-        fontSize: 10,
-        marginBottom: 0,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        textDecoration: 'underline'
-    },
-    subheading: {
-        fontSize: 12,
-        marginBottom: 10,
-    },
-    text: {
-        fontSize: 10,
-        marginBottom: 5,
-    },
-    text2: {
-        fontSize: 8,
-        margin: 2,
+        margin: 5,
+        padding: 5,
+        flexGrow: 1
     },
     table: {
-        display: 'table',
-        width: 'auto',
-        borderStyle: 'solid',
+        display: "table",
+        width: "auto",
+        borderStyle: "solid",
         borderWidth: 1,
-        margin: 10,
+        borderRightWidth: 0,
+        borderBottomWidth: 0
     },
     tableRow: {
-        flexDirection: 'row',
+        margin: "auto",
+        flexDirection: "row"
     },
     tableCol: {
-        width: '25%',
-        borderStyle: 'solid',
+        borderStyle: "solid",
         borderWidth: 1,
-        padding: 5,
+        borderLeftWidth: 0,
+        borderTopWidth: 0
     },
-    tableCol2: {
-        width: '50%',
-        textAlign: 'center',
-        borderStyle: 'solid',
-        borderWidth: 1,
-        padding: 1,
-        textAlign: 'center'
-    },
-    tableCol3: {
-        width: '100%',
-        borderStyle: 'solid',
-        borderWidth: 1,
-        padding: 1,
-        textAlign: 'center'
+    border1: {
+        borderStyle: "solid",
+        borderWidth: 0.5,
+        borderLeftWidth: 0,
+        borderBottomWidth: 0
     },
     tableCell: {
-        margin: 3,
+        margin: 5,
         fontSize: 10,
-        textAlign: 'center',
-
+        textAlign: 'center',  // Center-align text
+        overflow: 'hidden',   // Handle text overflow
+        whiteSpace: 'nowrap'  // Prevent text from wrapping
     },
-    Img0: {
-        width: '120%',
-        height: 100,
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        padding: 0,
-        margin: 0,
+    text: {
+        fontSize: 12,
     },
-    Img1: {
-        width: '120%',
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        padding: 0,
-        margin: 0,
-    },
-    Img2: {
-        width: 70,
-        height: 70,
-        position: 'absolute',
-        bottom: 55,
-        left: 75,
-        padding: 0,
-        margin: 0,
-    },
-    Img3: {
-        width: 70,
-        height: 70,
-        position: 'absolute',
-        bottom: 55,
-        left: 5,
-        padding: 0,
-        margin: 0,
-    },
-    pie: {
-        textAlign: 'center',
-        position: 'absolute',
-        bottom: 60,
-        width: "110%"
-    },
-    tableCell22: {
-        fontSize: 10,
-        textAlign: 'center',
-        verticalAlign: 'middle',
-    },
-    centeredContent: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        //height: '100%',
-    },
-    f1: {
-        fontWeight: 'bold',
-        fontSize: 10,
-    },
-    f2: {
-        padding: 1,
-        backgroundColor: '#800000',
-        color: 'white',
-    },
-    boldText: {
-        fontSize: 10,
-        fontFamily: 'C1',
-        textDecoration: 'underline'
+    text2: {
+        fontSize: 12,
+        textAlign: 'right',
     }
 });
 
 const VoterPDF = ({ voter }) => {
-    const { nombre, ci, categories } = voter;
+    const { nombre, ci, cel, categories } = voter;
     const activeCategories = Object.entries(categories).filter(([, value]) => value.enabled);
-
-    return (
-        <Document>
-            <Page style={styles.page}>
-                <Text style={styles.title}>Votante: {nombre}</Text>
-                <View style={styles.section}>
-                    <Text>Nombre: {nombre}</Text>
-                    <Text>CI: {ci}</Text>
-                </View>
-                <View style={styles.table}>
-                    <View style={{ ...styles.tableRow, backgroundColor: "#f0f0f0" }}>
-                        <View style={{ ...styles.tableCol, width: '10%', }}><Text style={{ ...styles.tableCell, }}>Nº</Text></View>
-                        <View style={{ ...styles.tableCol, width: '40%', }}><Text style={{ ...styles.tableCell, }}>Comandos.</Text></View>
-                        <View style={{ ...styles.tableCol, width: '25%', }}><Text style={{ ...styles.tableCell, }}>Habilitado</Text></View>
-                        <View style={{ ...styles.tableCol, width: '25%', }}><Text style={{ ...styles.tableCell, }}>Emitió Voto</Text></View>
-                    </View>
-                    {activeCategories.map(([key, value], index) => (
-                        <View key={key} style={styles.tableRow}>
-                            <View style={{ ...styles.tableCol, width: '10%', padding: 20, }}><Text style={styles.tableCell}>{index + 1}</Text></View>
-                            <View style={{ ...styles.tableCol, width: '40%', padding: 20, }}><Text style={styles.tableCell}>{key.toLocaleUpperCase()}</Text></View>
-                            <View style={{ ...styles.tableCol, width: '25%', padding: 20, }}><Text style={styles.tableCell}>{" "}</Text></View>
-                            <View style={{ ...styles.tableCol, width: '25%', padding: 20, }}><Text style={styles.tableCell}>{" "}</Text></View>
+    console.log("ACTIVS", activeCategories);
+    return (<Document>
+        <Page style={styles.page}>
+            <Text style={{ ...styles.title, }}>ELECCION DE COMANDOS FUNCIONALES Y SECTORIALES 2024</Text>
+            <Text style={styles.title}>VERIFICACION Y HABILITACION DE MILITANTES ELECTORES</Text>
+            <View style={styles.section}>
+                <Text style={styles.text2}>CODIGO N°: {100}</Text>
+                <Text style={styles.text2}>N° DE COMANDO HABILITADOS {4}</Text>
+                <Text style={styles.text}>Nombre: {nombre}</Text>
+                <Text style={styles.text}>CI: {ci}</Text>
+                <Text style={styles.text}>Celular: {cel}</Text>
+            </View>
+            <View style={styles.table}>
+                <View style={{ ...styles.tableRow, backgroundColor: "#f0f0f0" }} fixed>
+                    <View style={{ ...styles.tableCol, width: '5%' }}><Text style={styles.tableCell}>Nº</Text></View>
+                    <View style={{ ...styles.tableCol, width: '20%' }}><Text style={styles.tableCell}>COMANDO</Text></View>
+                    <View style={{ ...styles.tableCol, width: '35%', padding: 0, margin: 0 }}>
+                        <Text style={styles.tableCell}>VERIFICACION</Text>
+                        <View style={{ ...styles.tableRow }}>
+                            <View style={{ ...styles.border1, width: '65%', }}>
+                                <Text style={{ ...styles.tableCell }} >{"DOCUMENTO HABILITANTE"}</Text>
+                            </View>
+                            <View style={{ ...styles.border1, borderRightWidth: 0, width: '35%', }}>
+                                <Text style={styles.tableCell}>PRESENTO</Text>
+                            </View>
                         </View>
-                    ))}
+                    </View>
+                    <View style={{ ...styles.tableCol, width: '20%' }}><Text style={styles.tableCell}>HABILITACION</Text></View>
+                    <View style={{ ...styles.tableCol, width: '20%' }}><Text style={styles.tableCell}>EMISION DE VOTO</Text></View>
                 </View>
-            </Page>
-        </Document>
-    );
+                {Object.keys(categories).map((key, index) => (
+                    <View key={key} style={styles.tableRow}>
+                        <View style={{ ...styles.tableCol, width: '5%' }}><Text style={styles.tableCell}>{index + 1}</Text></View>
+                        <View style={{ ...styles.tableCol, width: '20%' }}><Text style={{ ...styles.tableCell, textAlign: 'center' }}>{key.toUpperCase()}</Text></View>
+                        <View style={{ ...styles.tableCol, width: '35%', padding: 0, margin: 0 }}>
+                            {Object.entries(categories[key].documents).map((doc) => (<View key={doc[0]} style={styles.tableRow}>
+                                <Text style={{ ...styles.tableCell, textAlign: 'center', width: '65%', }}>{doc[0]}</Text>
+
+                                <Text style={{ ...styles.tableCell, textAlign: 'center', width: '35%', }}>{doc[1] ? "Si" : "No"}</Text>
+
+                            </View>
+                            ))}
+                        </View>
+                        <View style={{ ...styles.tableCol, width: '20%' }}><Text style={{ ...styles.tableCell, textAlign: 'center', }}>{categories[key].enabled ? 'SI' : 'NO'}</Text></View>
+                        <View style={{ ...styles.tableCol, width: '20%' }}><Text style={styles.tableCell}></Text></View>
+                    </View>
+                ))}
+            </View>
+        </Page>
+    </Document>
+    )
 };
 
 export default VoterPDF;
