@@ -77,6 +77,7 @@ const Vista = ({ Component, pageProps }) => {
         <>
             {tema && <>
                 <link id="theme-link" rel="stylesheet" href={"/icons/themes/" + tema + "/theme.css"} />
+                {/* <link id="theme-link" rel="stylesheet" href={"/icons/h/theme.css"} /> */}
             </>}
             {loading ? (
                 <>

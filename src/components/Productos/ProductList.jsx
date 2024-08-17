@@ -53,6 +53,7 @@ const ProductList = ({ products, onAddToCart, icon, estados = { v: 'Valido', f: 
     };
 
     const imageBodyTemplate = (product) => {
+        // eslint-disable-next-line @next/next/no-img-element
         return <img src={`https://primefaces.org/cdn/primereact/images/product/${product.image}`} alt={product.image} className="w-6rem shadow-2 border-round" />;
     };
 
