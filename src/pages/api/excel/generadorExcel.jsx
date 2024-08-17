@@ -7,7 +7,7 @@ export default async function handler(req, res) {
       try {
         // Cargar el archivo Excel
         console.log("SOY EL PINCHE GET DE EXCEL");
-        const workbook = await XlsxPopulate.fromFileAsync("src/out.xlsx");
+        const workbook = await XlsxPopulate.fromFileAsync("./public/icons/h/out.xlsx");
 
         // Seleccionar la hoja que contiene la tabla
         const sheet = workbook.sheet(0);
@@ -101,7 +101,7 @@ export default async function handler(req, res) {
         console.log("SOY PUT ", req.body);
         const { codigo } = req.body;
         // Load an existing workbook
-        const workbook = await XlsxPopulate.fromFileAsync("./out.xlsx");
+        const workbook = await XlsxPopulate.fromFileAsync("out.xlsx");
 
         const sheet = workbook.sheet(0);
         const lastRow = sheet.usedRange().endCell().rowNumber();
