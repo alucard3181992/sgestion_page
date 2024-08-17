@@ -1,4 +1,5 @@
-import VistaPrincipalExcel from "@/Components/excel/Inicio";
+
+import VistaPrincipalExcel from "@/components/excel/Inicio";
 import Navbar from "@/components/PaginasExterior/Navbar";
 import React from "react";
 const VistaExcel = () => {
