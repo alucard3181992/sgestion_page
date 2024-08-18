@@ -125,7 +125,7 @@ export default async function handler(req, res) {
         }
 
         // 4. Guarda el archivo con los nuevos datos añadidos
-        await workbook.toFileAsync("./public/icons/h/out.xlsx");
+        await workbook.toFileAsync("/icons/h/out.xlsx");
         return res.status(200).send({ message: "TODO BIEN: " });
       } catch (error) {
         console.log("ERROR", error);
