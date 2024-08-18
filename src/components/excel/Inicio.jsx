@@ -44,23 +44,24 @@ const VistaPrincipalExcel = () => {
       try {
         const response = await fetch("/icons/h/out.xlsx");
         const arrayBuffer = await response.arrayBuffer();
-
         // Convertir el ArrayBuffer en Uint8Array para serializarlo fácilmente
         const uint8Array = new Uint8Array(arrayBuffer);
-
         const response2 = await axios.post("/api/excel/descargarExcel", {
           data: Array.from(uint8Array),
         });
-        console.log("RESPONSE 2 ", response2);
-        if (response2.statusText === "OK") {
+        //console.log("RESPONSE 2 ", response2);
+        if (response2.status === 200) {
+          // Guarda los datos
           setHeaders(response2.data.headers); // Guarda los encabezados
-          setData(response2.data.dataNueva); // Guarda los datos
+          setData(response2.data.dataNueva);
           console.log("NUEVA OPCION SI FUNCIONA", response2.data);
         } else {
           console.error("NO FUNCIONA TAMPOCO");
         }
       } catch (error) {
         console.error("Error al enviar los datos:", error);
+      } finally {
+        setLoading(false); // Deja de mostrar el loading una vez que los datos se han cargado
       }
     };
 
