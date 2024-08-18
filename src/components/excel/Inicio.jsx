@@ -17,7 +17,7 @@ const VistaPrincipalExcel = () => {
   const [headers, setHeaders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  /* useEffect(() => {
     // Realiza la solicitud a la API
     const fetchData = async () => {
       try {
@@ -37,7 +37,7 @@ const VistaPrincipalExcel = () => {
     };
 
     fetchData();
-  }, []);
+  }, []); */
 
   useEffect(() => {
     const fetchExcel = async () => {
@@ -51,8 +51,10 @@ const VistaPrincipalExcel = () => {
         const response2 = await axios.post("/api/excel/descargarExcel", {
           data: Array.from(uint8Array),
         });
-
+        console.log("RESPONSE 2 ", response2);
         if (response2.statusText === "OK") {
+          setHeaders(response2.data.headers); // Guarda los encabezados
+          setData(response2.data.dataNueva); // Guarda los datos
           console.log("NUEVA OPCION SI FUNCIONA", response2.data);
         } else {
           console.error("NO FUNCIONA TAMPOCO");

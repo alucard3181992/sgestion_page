@@ -78,6 +78,8 @@ export default async function handler(req, res) {
           return rowData;
         });
         console.log("Workbook cargado correctamente");
+        console.log("HEADERS", headers);
+        console.log("DATA", dataNueva);
         return res.status(200).json({ headers, dataNueva });
         /* return res
           .status(200)
