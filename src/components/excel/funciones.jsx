@@ -53,3 +53,19 @@ export const modificarExcel = async () => {
     console.error("Failed to save variables");
   }
 };
+export const modificarExcel2 = async () => {
+  const response = await fetch("/icons/h/out.xlsx");
+  const arrayBuffer = await response.arrayBuffer();
+  // Convertir el ArrayBuffer en Uint8Array para serializarlo fácilmente
+  const uint8Array = new Uint8Array(arrayBuffer);
+  const response2 = await axios.put("/api/excel/descargarExcel", {
+    codigo: "COD-4",
+    data: Array.from(uint8Array),
+  });
+  console.log("SOY RESPONDE 2", response2);
+  if (response2.status === 200) {
+    console.log("Variables saved successfully!");
+  } else {
+    console.error("Failed to save variables");
+  }
+};

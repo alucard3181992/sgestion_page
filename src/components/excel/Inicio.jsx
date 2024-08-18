@@ -6,6 +6,7 @@ import {
   nuevosDatosExcel,
   consultaExcel,
   modificarExcel,
+  modificarExcel2,
 } from "./funciones";
 
 import { Button } from "primereact/button";
@@ -90,6 +91,13 @@ const VistaPrincipalExcel = () => {
           rounded
           text
           onClick={modificarExcel}
+          icon="pi pi-file-excel"
+        />
+        <Button
+          label="ModificarExcel 2"
+          rounded
+          text
+          onClick={modificarExcel2}
           icon="pi pi-file-excel"
         />
 

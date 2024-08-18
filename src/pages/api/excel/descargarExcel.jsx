@@ -29,7 +29,7 @@ export default async function handler(req, res) {
 
     case "POST": {
       try {
-        console.log("SOY POST DE DESCARGA", req.body);
+        //console.log("SOY POST DE DESCARGA", req.body);
 
         const { data } = req.body;
         if (!data) {
@@ -78,8 +78,8 @@ export default async function handler(req, res) {
           return rowData;
         });
         console.log("Workbook cargado correctamente");
-        console.log("HEADERS", headers);
-        console.log("DATA", dataNueva);
+        /* console.log("HEADERS", headers);
+        console.log("DATA", dataNueva); */
         return res.status(200).json({ headers, dataNueva });
         /* return res
           .status(200)
@@ -100,6 +100,32 @@ export default async function handler(req, res) {
 
     case "PUT": {
       try {
+        console.log("SOY PUT DE DESCARGA", req.body);
+
+        const { data, codigo } = req.body;
+        if (!data) {
+          throw new Error("No data received");
+        }
+
+        // Convertir el array de vuelta a Uint8Array
+        const uint8Array = new Uint8Array(data);
+
+        // Si necesitas trabajar con XlsxPopulate:
+        const workbook = await XlsxPopulate.fromDataAsync(uint8Array.buffer);
+        const sheet = workbook.sheet(0);
+        const lastRow = sheet.usedRange().endCell().rowNumber();
+        const lastCol = sheet.usedRange().endCell().columnNumber();
+        for (var i = 1; i <= lastRow; i++) {
+          if (sheet.cell(`A${i}`).value() === codigo) {
+            sheet.cell(`B${i}`).value("Encontrado NUEVO NUBE");
+            sheet.cell(`C${i}`).value("Encontrado NUEVO NUBE");
+            sheet.cell(`D${i}`).value("Encontrado NUEVO NUBE");
+            sheet.cell(`E${i}`).value("Encontrado NUEVO NUBE");
+          }
+        }
+
+        // 4. Guarda el archivo con los nuevos datos añadidos
+        await workbook.toFileAsync("./public/icons/h/out.xlsx");
         return res.status(200).send({ message: "TODO BIEN: " });
       } catch (error) {
         console.log("ERROR", error);
