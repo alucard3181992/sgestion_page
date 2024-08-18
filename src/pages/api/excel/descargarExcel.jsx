@@ -29,9 +29,59 @@ export default async function handler(req, res) {
 
     case "POST": {
       try {
-        return res
+        console.log("SOY POST DE DESCARGA", req.body);
+
+        const { data } = req.body;
+        if (!data) {
+          throw new Error("No data received");
+        }
+
+        // Convertir el array de vuelta a Uint8Array
+        const uint8Array = new Uint8Array(data);
+
+        // Si necesitas trabajar con XlsxPopulate:
+        const workbook = await XlsxPopulate.fromDataAsync(uint8Array.buffer);
+        const sheet = workbook.sheet(0);
+
+        // Determinar la última fila y columna con datos
+        const lastRow = sheet.usedRange().endCell().rowNumber();
+        const lastCol = sheet.usedRange().endCell().columnNumber();
+
+        // Función para convertir número de columna a letra
+        function numberToColumn(number) {
+          let column = "";
+          while (number > 0) {
+            const modulo = (number - 1) % 26;
+            column = String.fromCharCode(65 + modulo) + column;
+            number = Math.floor((number - modulo) / 26);
+          }
+          return column;
+        }
+
+        // Obtener el rango dinámicamente
+        const tableRange = sheet.range(
+          `A1:${numberToColumn(lastCol)}${lastRow}`
+        );
+
+        // Obtener todos los valores del rango en forma de array
+        const allValues = tableRange.value();
+
+        // Obtener los encabezados (primer fila del rango)
+        const headers = allValues[0];
+
+        // Crear un array de objetos donde cada objeto representa una fila con sus claves basadas en los encabezados
+        const dataNueva = allValues.slice(1).map((row) => {
+          let rowData = {};
+          headers.forEach((header, index) => {
+            rowData[header] = row[index];
+          });
+          return rowData;
+        });
+        console.log("Workbook cargado correctamente");
+        return res.status(200).json({ headers, dataNueva });
+        /* return res
           .status(200)
-          .json({ message: "Datos añadidos correctamente." });
+          .json({ message: "Datos añadidos correctamente." }); */
       } catch (error) {
         console.error("Error al modificar el archivo:", error.message);
         return res.status(500).json({ message: "ERROR: " + error.message });
