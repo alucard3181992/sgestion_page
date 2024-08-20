@@ -45,7 +45,7 @@ const VistaPrincipalExcel = () => {
 
   useEffect(() => {
     const fetchExcel = async () => {
-      try {
+      /* try {
         const response = await fetch("/icons/h/out.xlsx");
         const arrayBuffer = await response.arrayBuffer();
         // Convertir el ArrayBuffer en Uint8Array para serializarlo fácilmente
@@ -67,35 +67,18 @@ const VistaPrincipalExcel = () => {
         console.error("Error al enviar los datos:", error);
       } finally {
         setLoading(false); // Deja de mostrar el loading una vez que los datos se han cargado
-      }
+      } */
       try {
-        excel
-          .listar2()
-          .then((data) =>
-            console.log("DATA TRANSFORMADA", transformarDatos(data.data))
-          );
+        excel.listar3().then((data) => {
+          const datos = transformarDatos(data.data);
+          //console.log("DATA TRANSFORMADA");
+          setHeaders(datos.headers); // Guarda los encabezados
+          setData(datos.dataNueva);
+        });
       } catch (error) {
         console.log("ERROR  DATOS", error);
-      }
-      try {
-        const excelCliente = {
-          Codigo: "COD-450",
-          Nombre: "SHEET Nombre",
-          "Apellido Pat": "SHEET Ap",
-          "Apellido Mat": "SHEET Am",
-          Celular: "SHEET Celular",
-          Dato1: "SHHET 5",
-          Dato2: "SHHET 6",
-          Dato22: "SHHET",
-          Dato3: "SHHET 7",
-          Dato4: "SHHET 8",
-        };
-        excel
-          .create2(excelCliente)
-          .then((data) => console.log("EL RETORNO ES ", data));
-        
-      } catch (error) {
-        console.log("ERROR NUEVOS SHEET", error);
+      } finally {
+        setLoading(false); // Deja de mostrar el loading una vez que los datos se han cargado
       }
     };
 
@@ -179,10 +162,60 @@ const VistaPrincipalExcel = () => {
       console.log("ERROR MODIFICAR SHEET ", error);
     }
   };
+  const nuevosSheet = (tipo) => {
+    try {
+      const excelCliente = {
+        Codigo: "COD-BIEN gdfdgdfgdf",
+        tipo: tipo,
+        Nombre: "NUEVO DESDE REACT SEEE",
+        "Apellido Pat": "SHEET Ap SEE",
+        "Apellido Mat": "SHEET Am SEE",
+        Celular: "SHEET Celular SEE",
+        Dato1: "SHHET 5 SEE",
+        Dato2: "SHHET 6 SEE",
+        Dato22: "SHHET SEE",
+        Dato3: "SHHET 7 SEE",
+        Dato4: "SHHET 8 SEE",
+      };
+      excel.create3(excelCliente).then((res) => console.log("RESPUESTA", res));
+    } catch (error) {
+      console.log("ERROR NUEVOS SHEET", error);
+    }
+  };
   return (
     <React.Fragment>
       <div className="flex flex-wrap gap-2">
         <Button
+          label="NuevosExcel"
+          rounded
+          text
+          onClick={(e) => {
+            e.preventDefault();
+            nuevosSheet("crear");
+          }}
+          icon="pi pi-file-excel"
+        />
+        <Button
+          label="ModificarExcel"
+          rounded
+          text
+          onClick={(e) => {
+            e.preventDefault();
+            nuevosSheet("modificar");
+          }}
+          icon="pi pi-file-excel"
+        />
+        <Button
+          label="EliminarExcel"
+          rounded
+          text
+          onClick={(e) => {
+            e.preventDefault();
+            nuevosSheet("eliminar");
+          }}
+          icon="pi pi-file-excel"
+        />
+        {/* <Button
           label="NuevosExcel"
           rounded
           text
@@ -234,7 +267,7 @@ const VistaPrincipalExcel = () => {
           onClick={modificarExcel2}
           icon="pi pi-file-excel"
         />
-
+ */}
         {loading ? (
           <p>Cargando datos...</p>
         ) : (
