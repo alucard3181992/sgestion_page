@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import * as XLSX from "xlsx";
+import { format, parseISO, parse } from "date-fns";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
+import { FileUpload } from "primereact/fileupload";
 
 const ImportExcel = ({ onImport }) => {
-  const [file, setFile] = useState(null);
-
-  const handleFileChange = (e) => {
-    const uploadedFile = e.target.files[0];
-    if (uploadedFile) {
-      setFile(uploadedFile);
+  const handleUpload = async (event) => {
+    console.log("MI LLAMAN");
+    const file = event.files[0];
+    if (file) {
+      handleImport(file);
     }
   };
-
-  const handleImport = () => {
+  const handleImport = (file) => {
     if (!file) {
       alert("Por favor, selecciona un archivo.");
       return;
@@ -23,10 +23,37 @@ const ImportExcel = ({ onImport }) => {
     reader.onload = (event) => {
       const binaryString = event.target.result;
       const wb = XLSX.read(binaryString, { type: "binary" });
-      const sheet = wb.Sheets[wb.SheetNames[0]]; // Obtener la primera hoja
+      const sheet = wb.Sheets[wb.SheetNames[0]];
 
-      const data = XLSX.utils.sheet_to_json(sheet); // Convertir la hoja a JSON
-      onImport(data); // Pasar los datos al componente principal
+      // Convertir los datos de la hoja a JSON
+      let data = XLSX.utils.sheet_to_json(sheet);
+
+      // Normalizar las fechas
+      data = data.map((row) => {
+        if (row.date) {
+          // Si la fecha es texto en formato DD/MM/YYYY
+          if (typeof row.date === "string" && row.date.includes("/")) {
+            const [day, month, year] = row.date.split("/");
+            row.date = new Date(year, month - 1, day).toISOString();
+          }
+          // Si ya está en formato ISO, usarla directamente
+          else if (typeof row.date === "string") {
+            row.date = parseISO(row.date).toISOString();
+          }
+          // Si es un número (formato Excel)
+          else if (typeof row.date === "number") {
+            const parsedDate = XLSX.SSF.parse_date_code(row.date);
+            row.date = new Date(
+              parsedDate.y,
+              parsedDate.m - 1,
+              parsedDate.d
+            ).toISOString();
+          }
+        }
+        return row;
+      });
+
+      onImport(data); // Pasar los datos normalizados
     };
     reader.readAsBinaryString(file);
   };
@@ -34,24 +61,17 @@ const ImportExcel = ({ onImport }) => {
   return (
     <Card>
       <center>
-        <div style={{ position: "relative", display: "inline-block" }}>
-          {/* El input de tipo file está visible, pero muy transparente y colocado encima del label */}
-          <input
-            type="file"
+        <div>
+          <FileUpload
+            name="invoice"
             accept=".xlsx, .xls"
-            onChange={handleFileChange}
-            id="uploadExcel"
-            className="p-button"
-          />
-          {/* El botón será el que se ve en la UI */}
-          {file && <span> {file.name}</span>}{" "}
-          {/* Mostrar el nombre del archivo cargado */}
-          <Button
-            label="Importar"
-            onClick={handleImport}
-            icon="pi pi-check"
-            className="p-button-success"
-          />
+            /* customUpload={true}
+            uploadHandler={handleUpload} */
+            onUpload={handleUpload}
+            chooseLabel="Seleccionar archivo"
+            uploadLabel="Cargar datos"
+            cancelLabel="Cancelar"
+          ></FileUpload>
         </div>
       </center>
     </Card>
