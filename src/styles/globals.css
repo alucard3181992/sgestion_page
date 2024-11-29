@@ -238,7 +238,32 @@ body {
   top: 0;
   z-index: -1;
 }
+.imagen5 {
+  position: relative;
+  width: 100%;
+  left: 0;
+  top: 0px !important;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
 
+.imagen5::before {
+  content: '';
+  background-image: url("/icons/img/5.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: left;
+  background-attachment: fixed;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  z-index: -1;
+}
 .linea {
   background-color: #149dcc;
   color: #149dcc;
@@ -755,7 +780,8 @@ ul {
 }
 
 .color-fondo {
-  background-color: #2a2a2a;
+  background-color: var(--surface-a);
+  color: var(--text-color);
 }
 
 .font-500 {

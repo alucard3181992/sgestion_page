@@ -45,7 +45,7 @@ export default function Clients() {
                 </div>
                 <div className="col-12 centro-total">
                     <div className="carusel" >
-                        <div className="card" style={{ background: "#1e1e1e" }} >
+                        <div className="card color-fondo" style={{ background: "var(--surface-a)" }} >
                             <Carousel value={projects} numScroll={1} numVisible={1} itemTemplate={pTemplate} circular />{/*  */}
                         </div>
                     </div>

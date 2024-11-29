@@ -39,6 +39,7 @@ export async function middleware(request) {
         "/Modelo3/Modelo3" === request.nextUrl.pathname ||
         "/Modelo4/Modelo4" === request.nextUrl.pathname ||
         "/Modelo5/Modelo5" === request.nextUrl.pathname ||
+        "/Modelo6/Modelo6" === request.nextUrl.pathname ||
         "/Principal/Principal" === request.nextUrl.pathname ||
         "/Usuario/GUsuario" === request.nextUrl.pathname ||
         "/Cliente/GCliente" === request.nextUrl.pathname ||

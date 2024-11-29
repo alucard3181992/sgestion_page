@@ -180,6 +180,13 @@ export const items = [
     link: "si",
     href: "/Modelo5/Modelo5",
   },
+  {
+    label: "Modelo6",
+    icon: "pi pi-fw pi-calendar-plus",
+    url: "/Modelo6/Modelo6",
+    link: "si",
+    href: "/Modelo6/Modelo6",
+  },
   ,
   {
     label: "Backup",

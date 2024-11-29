@@ -4,7 +4,7 @@ export default function Footer() {
     return (
         <section id="footer" className="" style={{
             zIndex: 0, top: 0, backgroundImage: "none", position: "relative",
-            background: "#1e1e1e"
+            background: "var(--surface-a)"
         }}>
             <div className="grid p-2">
                 <div className="col-6 md:col-3 lg:col-3 centro-total">
